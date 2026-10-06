@@ -55,12 +55,14 @@ export function normalise(input: string): string {
   s = s.replace(/(→|⟶|⇒|=>|-+>|—>|–>)/g, " yields ");
   s = s.replace(/[’'`]/g, "");
   s = s.replace(/\bph\s*(?:=|:)?\s*(\d)/g, "ph $1");
-  s = s.replace(/[^a-z0-9.\s]/g, " ");
-  // keep decimal points only between digits (34.5), drop full stops
-  s = s.replace(/(?<!\d)\.|\.(?!\d)/g, " ");
+  // sentence breaks become a "|" token so negation and phrases never reach across them
+  s = s.replace(/(?<!\d)\.|\.(?!\d)|[;:!?=\n\r]/g, " | ");
+  s = s.replace(/[^a-z0-9.|\s]/g, " ");
   for (const [re, to] of SPELLING) s = s.replace(re, to);
   return s.replace(/\s+/g, " ").trim();
 }
+
+const BREAK = "|";
 
 export function tokens(input: string): string[] {
   const n = normalise(input);
@@ -90,15 +92,35 @@ function lev(a: string, b: string): number {
 const isNumber = (s: string) => /^\d+(\.\d+)?$/.test(s);
 
 /** Does one answer word match one keyword word? */
+// Real science words one letter apart: never let a slip turn one into the other.
+const CONFUSABLE: [string, string][] = [
+  ["carbohydrase", "carbohydrate"],
+  ["insoluble", "soluble"],
+  ["neither", "either"],
+  ["alkaline", "alkali"],
+  ["indicator", "indicate"],
+  ["villus", "villi"],
+];
+
+function confusable(a: string, k: string): boolean {
+  for (const [x, y] of CONFUSABLE) {
+    for (const [p, q] of [[x, y], [y, x]]) {
+      if ((p.startsWith(k) || k.startsWith(p)) && a.startsWith(q) && !a.startsWith(k)) return true;
+    }
+  }
+  return false;
+}
+
 export function wordMatch(a: string, k: string): boolean {
+  if (a === BREAK || k === BREAK) return false;
   if (a === k) return true;
   if (isNumber(k)) return isNumber(a) && Number(a) === Number(k);
   if (isNumber(a)) return false;
   if (a === `${k}s` || a === `${k}es`) return true;
   if (k.length < 4) return false;
   if (a.startsWith(k)) return true; // stems: acid → acidic, evaporat → evaporating
-  if (k.length < 5) return false;
-  const tol = k.length >= 9 ? 2 : 1;
+  if (k.length < 6 || confusable(a, k)) return false; // no typo tolerance for short words (break ≠ bread)
+  const tol = k.length >= 10 ? 2 : 1;
   if (Math.abs(a.length - k.length) <= tol && lev(a, k) <= tol) return true;
   if (a.endsWith("s") && lev(a.slice(0, -1), k) <= tol) return true;
   // misspelt stem, e.g. "nutralisation" vs keyword "neutralis"
@@ -106,6 +128,18 @@ export function wordMatch(a: string, k: string): boolean {
     for (const len of [k.length - 1, k.length, k.length + 1]) {
       if (len <= a.length && lev(a.slice(0, len), k) <= 1) return true;
     }
+  }
+  return false;
+}
+
+const NOT_NEGATING_NEXT = new Set(["as", "only", "just", "so"]);
+
+/** Is the word at index i negated by one of the two words before it (same sentence only)? */
+function negated(answer: string[], i: number): boolean {
+  for (const j of [i - 1, i - 2]) {
+    const w = answer[j];
+    if (!w || w === BREAK) return false;
+    if (NEGATORS.has(w) && !NOT_NEGATING_NEXT.has(answer[j + 1] ?? "")) return true;
   }
   return false;
 }
@@ -129,10 +163,7 @@ function phraseFound(answer: string[], phrase: string[]): boolean {
       pos = next;
     }
     if (!ok) continue;
-    if (guard) {
-      const before = [answer[i - 1], answer[i - 2]];
-      if (before.some((w) => w && NEGATORS.has(w))) continue;
-    }
+    if (guard && negated(answer, i)) continue;
     return true;
   }
   return false;
@@ -140,7 +171,10 @@ function phraseFound(answer: string[], phrase: string[]): boolean {
 
 /** Does a keyword entry (possibly "part+part") match the answer tokens? */
 export function keywordMatches(answer: string[], keyword: string): boolean {
-  const parts = keyword.split("+").map((p) => tokens(p)).filter((p) => p.length);
+  const parts = keyword
+    .split("+")
+    .map((p) => tokens(p).filter((t) => t !== BREAK))
+    .filter((p) => p.length);
   if (!parts.length) return false;
   return parts.every((p) => phraseFound(answer, p));
 }

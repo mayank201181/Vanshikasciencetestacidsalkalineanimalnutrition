@@ -58,3 +58,31 @@ test("grades a written answer point by point", () => {
   assert.deepEqual(r2.credited, [false, true, false]);
   assert.equal(gradeQA(qa, "").score, 0);
 });
+
+test("negation never reaches across a sentence break", () => {
+  assert.ok(hit("It is only an irritant, not corrosive. Wash your hands", "wash"));
+  assert.ok(hit("no change = neutral", "neutral"));
+  assert.ok(!hit("it does not turn red", "turn red"));
+});
+
+test("comparisons are not negations", () => {
+  assert.ok(hit("universal indicator is not as accurate as a probe", "accurate"));
+  assert.ok(hit("not only does it emulsify fat", "emulsif"));
+});
+
+test("short words get no typo tolerance; confusable science words never match", () => {
+  assert.ok(!hit("bread", "break"));
+  assert.ok(!hit("basic", "basin"));
+  assert.ok(!hit("still", "spill"));
+  assert.ok(!hit("carbohydrates", "carbohydrase"));
+  assert.ok(!hit("carbohydrase", "carbohydrate"));
+  assert.ok(!hit("soluble", "insoluble"));
+  assert.ok(!hit("either", "neither"));
+  assert.ok(hit("carbohydrases", "carbohydrase"));
+  assert.ok(hit("insoluble", "insolub"));
+});
+
+test("phrases cannot span sentences", () => {
+  assert.ok(!hit("it went blue. Black ink", "blue black"));
+  assert.ok(hit("it went blue-black.", "blue black"));
+});

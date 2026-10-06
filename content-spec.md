@@ -132,11 +132,20 @@ Parents will hand her this app — the content must be correct, clear and genuin
   - `keywords`: 4–10 **lower-case** phrases a real 12-year-old might write for that idea,
     including synonyms and common phrasings. "+" means all parts must appear somewhere in the
     answer, in any order: `"sodium+chloride"`, `"heat+evaporating basin"`.
-    Matching is forgiving: 1–2 letter spelling slips and UK/US spellings are accepted, and a
-    keyword word of 5+ letters also matches any answer word that **starts with** it (so
-    `"evaporat"` matches evaporate / evaporating / evaporation). A phrase with several words must
-    appear as consecutive words (e.g. `"blue black"` matches "blue-black" and "blue black").
-    Punctuation is ignored. Keep phrases short (1–3 words) so they actually match.
+    How the marker (`lib/grade.ts`) actually matches:
+    - UK/US spellings and some common misspellings are normalised (sulphate, neutralize, amalyse…).
+    - A keyword word of **4+ letters** also matches any answer word that **starts with** it
+      (`"acid"` → acidic; `"evaporat"` → evaporating). Plurals always match.
+    - Typo tolerance: 1 letter for keyword words of **6–9 letters**, 2 letters for 10+; **none**
+      for words under 6 letters. Confusable pairs never match each other
+      (carbohydrase/carbohydrate, soluble/insoluble, either/neither).
+    - A multi-word phrase must appear as consecutive words, allowing one small filler word
+      between them ("blue and black"); hyphens and punctuation are ignored.
+    - **Sentence breaks** (. ; : ! ? = and new lines) end phrases and stop negation.
+    - **Negation:** a match is refused if not/no/never/isn't/doesn't/don't/can't/cannot/won't/
+      without/neither/nor is one of the two words before it in the same sentence — except
+      comparisons like "not as …", "not only …".
+    Keep phrases short (1–3 words) so they actually match.
   - **Never** use a keyword that already appears in the question text on its own (a student who
     copies the question must score 0). Combine with "+" instead.
   - Negations: the app ignores a match if "not/no/never/isn't/doesn't/don't/can't/cannot" comes

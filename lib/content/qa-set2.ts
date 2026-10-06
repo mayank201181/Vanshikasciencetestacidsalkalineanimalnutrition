@@ -172,7 +172,7 @@ export const QA_SET_2: QuestionSet<QA> = {
         "A student mixed 1 g of each antacid powder with water and universal indicator, then added dilute hydrochloric acid until the mixture turned green. She did three trials for each antacid. (a) Identify the anomalous result. (b) Calculate the mean for Neutra, ignoring the anomalous result. (c) Which antacid is the most effective? Explain why.",
       table: {
         caption: "Volume of acid neutralised by 1 g of antacid (cm³)",
-        headers: ["Antacid", "Trial 1", "Trial 2", "Trial 3"],
+        headers: ["Antacid", "Trial 1 (cm³)", "Trial 2 (cm³)", "Trial 3 (cm³)"],
         rows: [
           ["Calmo", "20", "22", "21"],
           ["Neutra", "35", "12", "34"],
