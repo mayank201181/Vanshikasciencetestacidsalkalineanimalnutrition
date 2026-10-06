@@ -287,10 +287,10 @@ export const QA_SET_2: QuestionSet<QA> = {
           keywords: [
             "constipat",
             "deficien",
+            "scurvy",
             "lack of vitamin",
             "not enough vitamin",
-            "lack of fibre",
-            "not enough fibre",
+            "enough vitamin",
             "tooth",
             "teeth",
             "diabetes",
@@ -591,7 +591,7 @@ export const QA_SET_2: QuestionSet<QA> = {
           point:
             "Large molecules are insoluble / too big to pass through the gut wall into the blood, so they can't be absorbed",
           keywords: [
-            "insoluble",
+            "insolub",
             "not soluble",
             "too big",
             "to big",
@@ -801,7 +801,7 @@ export const QA_SET_2: QuestionSet<QA> = {
             "produces digestive",
             "pancreas enzymes",
             "lipase",
-            "carbohydrase",
+            "amylase",
           ],
           feedback:
             "The **pancreas** makes **digestive enzymes** (carbohydrase, protease and lipase) and releases them into the small intestine.",
