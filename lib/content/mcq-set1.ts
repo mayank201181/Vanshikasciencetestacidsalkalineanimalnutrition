@@ -395,7 +395,7 @@ export const MCQ_SET_1: QuestionSet<MCQ> = {
       answerIndex: 0,
       optionFeedback: [
         "Products are the new substances made, written to the right of the arrow — here, potassium nitrate and water.",
-        "These are written first, so they can look like the answer — but they are the reactants, the substances you start with, on the LEFT of the arrow.",
+        "These are written first in the equation, so they can look like the answer — but they are the reactants, the substances you start with, on the LEFT of the arrow.",
         "The salt is the 'interesting' new substance, so it's easy to forget the water — but everything to the right of the arrow is a product.",
         "It's easy to think neutralisation just 'turns acid into water', but the salt, potassium nitrate, is a product too.",
       ],
@@ -424,7 +424,7 @@ export const MCQ_SET_1: QuestionSet<MCQ> = {
         "Filtering does separate solids, so it's tempting — but only solids that are NOT dissolved. The salt is dissolved, so it passes straight through with the water.",
         "Sand or mud in water would settle like this, but dissolved salt is spread evenly through the water and never sinks out on its own.",
         "Heating the solution (in an evaporating basin) evaporates the water, and the dissolved salt is left behind as solid crystals.",
-        "It might seem that adding more reactant makes more salt appear, but extra alkali would just make the solution alkaline again (pH above 7) — and the salt would still be dissolved.",
+        "It might seem that adding more reactant makes more salt appear, but extra alkali would just make the solution alkaline (pH above 7) — and the salt would still be dissolved.",
       ],
       explanation:
         "When the acid and alkali have exactly neutralised each other, the salt is **dissolved** in the water, so filtering won't separate it. To get it back as a solid, **evaporate the water**: heat the solution gently in an **evaporating basin** (or leave it somewhere warm) and **salt crystals** are left behind. Memory trick: **W**ater **W**anders off, **S**alt **S**tays.",
@@ -477,7 +477,7 @@ export const MCQ_SET_1: QuestionSet<MCQ> = {
       ],
       answerIndex: 1,
       optionFeedback: [
-        "Water is neutral, so it's tempting to think enough of it makes the acid neutral. But water can't neutralise an acid — the acid particles are still there, just spread out, so the solution stays slightly acidic.",
+        "Water is neutral, so it's tempting to think enough of it makes the acid neutral. But water can't neutralise an acid — the acid particles are still there, just spread out, so the solution is still acidic (below pH 7).",
         "The acid particles are spread through more water, so the solution is less acidic and its pH rises towards 7 — but it is still an acid, so it stays below 7.",
         "Lots of water feels like it should 'flip' the solution, but water contains nothing alkaline, so diluting can never turn an acid into an alkali. The pH creeps up towards 7 but never goes above it.",
         "It's true that no acid particles are removed — but they're now spread through a much bigger volume. Fewer acid particles in each cm³ means less acidic, so the pH goes up.",
@@ -582,7 +582,7 @@ export const MCQ_SET_1: QuestionSet<MCQ> = {
       difficulty: "challenge",
       question: "A student compares three brands of antacid. For each brand, she puts 50 cm³ of the same dilute hydrochloric acid into a beaker with a few drops of universal indicator, then adds the antacid one spatula at a time, stirring, until the indicator turns green. She counts how many spatulas are needed. What is the independent variable?",
       options: [
-        "The number of spatulas of antacid added",
+        "The number of spatulas of antacid needed",
         "The brand of antacid being tested",
         "The volume of acid in the beaker",
         "The colour the indicator turns at the end",
@@ -597,7 +597,7 @@ export const MCQ_SET_1: QuestionSet<MCQ> = {
       explanation:
         "The **independent variable** is the one thing **you change** (the brand of antacid); the **dependent variable** is what **you measure** (the number of spatulas needed to reach green); **control variables** are kept the **same** to make it a fair test (volume and concentration of acid, size of each spatula-full, amount of indicator). In a results table, the independent variable goes in the **first column**. Memory trick: **I** change the **I**ndependent; the **D**ependent is the **D**ata I collect.",
       hints: [
-        "Ask yourself: what is DIFFERENT each time she does the test?",
+        "Which of these does she decide BEFORE each test starts, and which does she only find out at the end?",
         "The number she counts is her result. Is that something she changes, or something she finds out?",
         "The independent variable is the one thing the scientist chooses to change on purpose. Which option fits that?",
       ],
