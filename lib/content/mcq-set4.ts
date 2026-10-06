@@ -59,7 +59,7 @@ export const MCQ_SET_4: QuestionSet<MCQ> = {
       answerIndex: 3,
       optionFeedback: [
         "Acids do contain hydrogen, which makes this tempting — but in neutralisation the hydrogen from the acid ends up in the water that is made, not as hydrogen gas.",
-        "Carbon dioxide is the gas you might remember from fizzing reactions, but an acid and an alkali don't fizz when they react — the only products are a salt and water.",
+        "Carbon dioxide is the fizz you get when an acid reacts with a carbonate (like bicarbonate of soda), but it isn't in the general equation — acid + alkali → salt + water.",
         "Hydrochloric acid does contain chlorine, but it ends up inside the salt as a chloride (e.g. sodium chloride) — no chlorine gas is made.",
         "The general equation is acid + alkali → salt + water, so water is the other product.",
       ],
@@ -501,7 +501,7 @@ export const MCQ_SET_4: QuestionSet<MCQ> = {
       hints: [
         "Does adding water add more alkali particles, or spread the same particles out?",
         "Is water acidic, neutral or alkaline? Could mixing an alkali with water ever give something more acidic than water itself?",
-        "Diluting orange squash makes it weaker and weaker — but could it ever turn into the opposite of squash?",
+        "However much water is added, the alkali particles are still there — just more spread out. So could the solution ever reach pH 7, or go below it?",
       ],
       strategy: "Think about particles",
     },
@@ -520,7 +520,7 @@ export const MCQ_SET_4: QuestionSet<MCQ> = {
       answerIndex: 3,
       optionFeedback: [
         "Water does dilute the acid, which seems like it would help — but diluting only moves the pH towards 7; it can't neutralise the acid. That needs an alkali or base.",
-        "The villi are in the small intestine and do absorb things, but only small, soluble digested food molecules — they don't remove the acid.",
+        "The villi are in the small intestine and do absorb things, but they take small, soluble molecules such as glucose and amino acids into the blood — they don't remove the acid.",
         "Bile is the right liquid, but an acid can't neutralise another acid — bile works because it is alkaline.",
         "Bile is made in the liver, stored in the gall bladder and released into the small intestine — it is alkaline, so it neutralises the stomach acid.",
       ],
@@ -576,7 +576,7 @@ export const MCQ_SET_4: QuestionSet<MCQ> = {
       answerIndex: 2,
       optionFeedback: [
         "Enzymes are made by living cells, which makes this tempting — but enzymes themselves are proteins, not living things, so they can't die.",
-        "Enzymes are not used up — the same enzyme can work again and again. And even if it were used up, it would still have digested a little starch first.",
+        "Running out sounds like a reason for a reaction stopping, but enzymes are not used up — the same enzyme can work again and again. The real problem is that protease doesn't fit starch at all.",
         "Enzymes are specific: protease's shape fits protein molecules, so starch doesn't fit — starch needs a carbohydrase such as amylase.",
         "Starch is actually a large, insoluble molecule — that's exactly why it has to be digested, but by a carbohydrase such as amylase, not by protease.",
       ],
@@ -596,8 +596,8 @@ export const MCQ_SET_4: QuestionSet<MCQ> = {
       difficulty: "challenge",
       question: "Three antacids were each tested three times. Which antacid is the most effective at neutralising acid?",
       table: {
-        caption: "Volume of acid neutralised by 1 g of antacid (cm³)",
-        headers: ["Antacid", "Trial 1", "Trial 2", "Trial 3"],
+        caption: "Volume of acid neutralised by 1 g of antacid",
+        headers: ["Antacid", "Trial 1 (cm³)", "Trial 2 (cm³)", "Trial 3 (cm³)"],
         rows: [
           ["Calmo", "22", "24", "23"],
           ["Neutra", "30", "31", "29"],

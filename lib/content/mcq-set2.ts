@@ -309,7 +309,7 @@ export const MCQ_SET_2: QuestionSet<MCQ> = {
       answerIndex: 3,
       optionFeedback: [
         "Starch is a white powder, so a white result might seem to fit — but the starch test uses iodine solution, which turns blue-black.",
-        "A positive Benedict's test can look cloudy too, which makes this tempting — but sugar gives an orange or brick red colour after heating, not a milky white layer.",
+        "Sugar is one of the four nutrients you can test for, so it's a natural guess — but sugar is tested with Benedict's solution, which turns orange or brick red when heated, not milky white.",
         "Milk contains protein, so a 'milky' result might make you think of protein — but protein is tested with biuret reagent, which turns purple.",
         "Fat dissolves in ethanol, and when the ethanol is poured into water the fat forms tiny droplets that look milky white.",
       ],
@@ -500,7 +500,7 @@ export const MCQ_SET_2: QuestionSet<MCQ> = {
       ],
       answerIndex: 1,
       optionFeedback: [
-        "Digestion does begin in the mouth, which makes this tempting — but only for starch. Saliva contains amylase, not protease, so protein isn't digested there.",
+        "Digestion does begin in the mouth, which makes this tempting — but chewing only breaks the dal into smaller pieces. Saliva contains amylase (for starch), not protease, so the protein isn't digested until it reaches the stomach.",
         "Protease made by the stomach starts protein digestion, and protease from the pancreas finishes it in the small intestine.",
         "This is the route for fat (lipase, helped by bile), which makes it easy to confuse — but protein digestion starts earlier, because the stomach makes its own protease.",
         "The stomach is right, which makes this tempting — but by the large intestine digestion is over; the large intestine absorbs water from undigested food.",
@@ -509,7 +509,7 @@ export const MCQ_SET_2: QuestionSet<MCQ> = {
         "Each nutrient has its own digestion route:\n\n- **Starch:** mouth (amylase in saliva) and small intestine\n- **Protein:** stomach (protease, helped by the acid) and small intestine (protease from the pancreas)\n- **Fat:** small intestine only (lipase, helped by bile)\n\nThe large intestine doesn't digest food — it absorbs water. Memory trick: the stomach makes acid to help protease, so that's where protein digestion starts.",
       hints: [
         "Think about which digestive juices contain protease, and where they are made.",
-        "The pancreas sends protease into the small intestine — but one other organ makes protease too.",
+        "The pancreas sends protease into the small intestine — but protease is also made by an organ that food reaches before the small intestine.",
         "Remember why the stomach contains acid: it gives the right conditions for one particular enzyme.",
       ],
       strategy: "Follow the food",
