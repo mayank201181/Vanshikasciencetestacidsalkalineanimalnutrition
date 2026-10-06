@@ -25,16 +25,16 @@ export const QA_SET_1: QuestionSet<QA> = {
         {
           point: "Blue litmus paper turns red in an acidic solution",
           keywords: [
-            "turne red+acids",
-            "turne red+acidic",
-            "goes red+acids",
-            "goes red+acidic",
-            "litmus red+acids",
-            "paper red+acids",
-            "to red+acids",
-            "to red+acidic",
-            "yields red+acids",
-            "red in acids",
+            "turn red+acid",
+            "go red+acid",
+            "change to red+acid",
+            "colour red+acid",
+            "blue to red+acid",
+            "litmus red+acid",
+            "paper red+acid",
+            "yields red+acid",
+            "red acid",
+            "red for acid",
           ],
           feedback:
             "Acids turn **blue litmus red**. Red litmus stays red in an acid, so it is the blue strip that shows you an acid.",
@@ -42,15 +42,16 @@ export const QA_SET_1: QuestionSet<QA> = {
         {
           point: "Red litmus paper turns blue in an alkaline solution",
           keywords: [
-            "turne blue+alkal",
-            "goes blue+alkal",
-            "to blue+alkal",
-            "litmus blue+alkal",
-            "paper blue+alkal",
-            "becomes blue+alkal",
-            "yields blue+alkal",
-            "blue in alkal",
-            "blue in an alkal",
+            "turn blue+alkali",
+            "go blue+alkali",
+            "change to blue+alkali",
+            "colour blue+alkali",
+            "red to blue+alkali",
+            "litmus blue+alkali",
+            "paper blue+alkali",
+            "yields blue+alkali",
+            "blue alkali",
+            "blue for alkali",
           ],
           feedback:
             "Alkalis turn **red litmus blue**. Blue litmus stays blue in an alkali, so it is the red strip that shows you an alkali.",
@@ -58,16 +59,16 @@ export const QA_SET_1: QuestionSet<QA> = {
         {
           point: "If neither paper changes colour, the solution is neutral",
           keywords: [
-            "neither+neutral",
+            "neith+neutral",
             "no change+neutral",
+            "no change neutral",
             "no colour change+neutral",
-            "staye the same+neutral",
-            "doesn't change+neutral",
+            "stay the same+neutral",
             "doesnt change+neutral",
-            "don't change+neutral",
+            "dont change+neutral",
             "not change+neutral",
             "nothing+neutral",
-            "staye blue+staye red+neutral",
+            "stay blue+stay red+neutral",
           ],
           feedback:
             "If **neither strip changes colour** (blue stays blue and red stays red), the solution is **neutral**. Litmus never turns green: green is a universal indicator colour.",
@@ -96,15 +97,15 @@ export const QA_SET_1: QuestionSet<QA> = {
       markScheme: [
         {
           point: "Carbohydrates provide energy",
-          keywords: ["energy", "energ", "engery", "enegry"],
+          keywords: ["energy", "engery", "enegry", "fuel"],
           feedback:
             "Carbohydrates (like the starch in bread and pasta) are the body's main source of **energy**.",
         },
         {
           point: "Proteins are for growth and repair",
           keywords: [
+            "grow",
             "growth",
-            "grows",
             "repair",
             "repare",
             "build+muscle",
@@ -118,14 +119,15 @@ export const QA_SET_1: QuestionSet<QA> = {
           point: "Fibre keeps food and faeces moving through the gut / prevents constipation",
           keywords: [
             "constipat",
-            "constipation",
             "food moving",
-            "food moves",
+            "food move",
             "food along",
             "moving+gut",
             "faeces",
             "toilet",
+            "bowel",
             "bulk",
+            "poo",
           ],
           feedback:
             "Fibre cannot be digested, but it **keeps food and faeces moving** through the digestive system and **prevents constipation**. Just writing 'helps digestion' is too vague to get the mark.",
@@ -154,23 +156,24 @@ export const QA_SET_1: QuestionSet<QA> = {
       markScheme: [
         {
           point: "X (pH 2): red, (strongly) acidic",
-          keywords: ["red+acids", "red+acidic", "red+asid", "red+acedic"],
+          keywords: ["red+acid", "red+asid", "red+acedic", "red+acdic"],
           feedback:
             "pH 2 is near the bottom of the scale, so universal indicator turns **red** and X is **strongly acidic**.",
         },
         {
           point: "Y (pH 7): green, neutral",
-          keywords: ["green+neutral", "green+neutal", "green+nuetral", "green+neither"],
+          keywords: ["green+neutral", "green+nuetral", "green+neith", "green+not acid"],
           feedback:
             "pH 7 is exactly in the middle of the scale. Universal indicator turns **green** and Y is **neutral**.",
         },
         {
           point: "Z (pH 11): dark blue / purple, (strongly) alkaline",
           keywords: [
-            "purple+alkal",
-            "blue+alkal",
-            "violet+alkal",
-            "purpel+alkal",
+            "purple+alkali",
+            "blue+alkali",
+            "violet+alkali",
+            "indigo+alkali",
+            "purpel+alkali",
           ],
           feedback:
             "pH 11 is near the top of the scale, so universal indicator turns **dark blue or purple** and Z is **strongly alkaline**.",
@@ -192,7 +195,7 @@ export const QA_SET_1: QuestionSet<QA> = {
       marks: 4,
       hints: [
         "Solid food has to be prepared first so that any sugar can get into a liquid. What would you do to it?",
-        "Benedict's solution starts off blue and only works when it is warmed. How would you heat it safely, and which colours show sugar?",
+        "Benedict's solution starts off blue. What must you do to the test tube before the colour can change, and which colours mean sugar is there?",
       ],
       modelAnswer:
         "- Crush a small piece of the food and mix it with a little water in a test tube.\n- Add a few drops of **Benedict's solution** (it is blue).\n- **Heat** the test tube in a **hot water bath** for a few minutes.\n- If sugar is present, the blue colour changes to **green, yellow, orange or brick red**. Brick red means there is a lot of sugar. If it stays blue, there is no sugar.",
@@ -202,13 +205,13 @@ export const QA_SET_1: QuestionSet<QA> = {
           keywords: [
             "crush",
             "grind",
-            "chopp",
-            "mashe",
+            "chop",
+            "mash",
             "cut up",
             "small pieces",
             "dissolve",
             "with water",
-            "add water",
+            "little water",
             "food and water",
           ],
           feedback:
@@ -222,8 +225,10 @@ export const QA_SET_1: QuestionSet<QA> = {
             "added+benedict",
             "pour+benedict",
             "put+benedict",
-            "drops+benedict",
+            "drop+benedict",
             "mix+benedict",
+            "mixed+benedict",
+            "mixing+benedict",
             "with benedict",
           ],
           feedback:
@@ -231,23 +236,13 @@ export const QA_SET_1: QuestionSet<QA> = {
         },
         {
           point: "Heat in a hot water bath for a few minutes",
-          keywords: [
-            "heat",
-            "heated",
-            "heating",
-            "water bath",
-            "hot water",
-            "warm",
-            "boils",
-            "boiling",
-            "bunsen",
-          ],
+          keywords: ["heat", "water bath", "hot water", "warm", "boil", "bunsen"],
           feedback:
             "Benedict's only works when it is **heated**. Put the test tube in a **hot water bath** for a few minutes.",
         },
         {
           point: "Positive result: blue changes to green / yellow / orange / brick red (brick red = lots of sugar)",
-          keywords: ["brick red", "brick", "red", "orang", "yellow", "green"],
+          keywords: ["brick", "red", "orange", "yellow", "green"],
           feedback:
             "Give the result. If sugar is present, the blue colour changes to **green, yellow, orange or brick red**, and brick red means lots of sugar. If it stays blue, there is no sugar.",
         },
@@ -278,7 +273,6 @@ export const QA_SET_1: QuestionSet<QA> = {
           keywords: [
             "indicator",
             "universal",
-            "indicater",
             "ph probe",
             "ph meter",
             "ph paper",
@@ -292,14 +286,12 @@ export const QA_SET_1: QuestionSet<QA> = {
           keywords: [
             "green",
             "ph 7",
-            "ph7",
-            "ph of 7",
             "drop by drop",
             "little at a time",
             "bit at a time",
             "until neutral",
             "until it is neutral",
-            "until it's neutral",
+            "until it becomes neutral",
           ],
           feedback:
             "Add the potassium hydroxide **a little at a time** (stirring) and stop when the indicator turns **green, which is pH 7** (neutral).",
@@ -309,14 +301,13 @@ export const QA_SET_1: QuestionSet<QA> = {
           keywords: [
             "evaporat",
             "heat",
-            "boils",
-            "boiling",
-            "warm place",
+            "boil",
+            "warm",
             "leave+dry",
             "dry out",
+            "dries",
             "windowsill",
             "window sill",
-            "basin",
           ],
           feedback:
             "The salt is dissolved, so you need to **evaporate the water**. Heat it gently in an evaporating basin or leave it in a warm place, and the salt crystals are left behind.",
@@ -324,10 +315,10 @@ export const QA_SET_1: QuestionSet<QA> = {
         {
           point: "Names the salt as potassium nitrate",
           keywords: [
-            "potassium nitrat",
-            "potasium nitrat",
-            "pottasium nitrat",
-            "potassuim nitrat",
+            "potassium nitrate",
+            "potasium nitrate",
+            "pottasium nitrate",
+            "kno3",
           ],
           feedback:
             "Metal first, then the acid part: potassium hydroxide + nitric acid makes **potassium nitrate** (+ water). Nitric acid always gives a **nitrate**.",
@@ -404,17 +395,17 @@ export const QA_SET_1: QuestionSet<QA> = {
         {
           point: "The salt is calcium nitrate",
           keywords: [
+            "calcium nitrate",
+            "calcuim nitrate",
+            "calsium nitrate",
             "calcium nitrat",
-            "calcuim nitrat",
-            "calsium nitrat",
-            "calium nitrat",
           ],
           feedback:
             "Metal first, acid part second: calcium hydroxide + nitric acid makes **calcium nitrate**. Nitric acid always gives a nitrate (not a nitride).",
         },
         {
           point: "Water is the other product",
-          keywords: ["water", "h2o", "watter", "warter"],
+          keywords: ["water", "h2o", "h20", "salt and water"],
           feedback:
             "Every acid + alkali neutralisation makes a salt **and water**. Don't forget water on the products side.",
         },
@@ -427,7 +418,7 @@ export const QA_SET_1: QuestionSet<QA> = {
             "forms calcium+hydroxide+nitric",
             "gives+hydroxide+nitric",
             "creat+hydroxide+nitric",
-            "reactant+product",
+            "reactant+product+hydroxide+nitric",
           ],
           feedback:
             "Write it as **reactants → products**: calcium hydroxide + nitric acid → calcium nitrate + water. Use an arrow (you can type ->), not an equals sign.",
@@ -447,8 +438,8 @@ export const QA_SET_1: QuestionSet<QA> = {
       question: "Explain three ways the small intestine is adapted for absorbing digested food.",
       marks: 3,
       hints: [
-        "Think about the tiny finger-like structures that line the inside of the small intestine.",
-        "For each feature, ask: does it give more area, a shorter distance, or a way to carry the food away quickly?",
+        "Think about the tiny structures that cover the inside wall of the small intestine. What are they called, and what do they do?",
+        "Three things speed up absorption: how much area there is, how far the food has to travel, and how quickly it is carried away. Find a feature for each.",
       ],
       modelAnswer:
         "- The inside is covered in millions of finger-like **villi**, which give a very **large surface area**, so more digested food can be absorbed at once.\n- The walls of the villi are **very thin (only one cell thick)**, so digested food has only a **short distance** to travel into the blood.\n- Each villus has a network of **capillaries** (a good **blood supply**), which carries the absorbed food away quickly so more can be absorbed.",
@@ -462,8 +453,7 @@ export const QA_SET_1: QuestionSet<QA> = {
             "surface",
             "microvilli",
             "finger like",
-            "folded",
-            "folds",
+            "fold",
           ],
           feedback:
             "The wall is covered in millions of finger-like **villi**, which give a very **large surface area**, so more food can be absorbed at once.",
@@ -471,12 +461,12 @@ export const QA_SET_1: QuestionSet<QA> = {
         {
           point: "Thin walls (one cell thick) give a short distance for absorption",
           keywords: [
-            "thin walls",
+            "thin wall",
+            "thin lining",
+            "thin layer",
             "wall is thin",
             "walls are thin",
             "very thin",
-            "thin lining",
-            "thin layer",
             "thinner",
             "cell thick",
             "one cell",
@@ -528,8 +518,8 @@ export const QA_SET_1: QuestionSet<QA> = {
             "not as many+partic",
             "partic+same volume",
             "partic+spread",
-            "fewer acids",
-            "less acids",
+            "fewer acid",
+            "less acid in",
           ],
           feedback:
             "Explain it using particles: a dilute acid has **fewer acid particles in the same volume** (more of it is water).",
@@ -543,7 +533,6 @@ export const QA_SET_1: QuestionSet<QA> = {
             "more corrosive",
             "corrosive+concentrat",
             "irritant",
-            "iritant",
             "exclamation",
             "less damage",
           ],
@@ -554,15 +543,15 @@ export const QA_SET_1: QuestionSet<QA> = {
           point: "A sensible precaution, e.g. wear eye protection / goggles",
           keywords: [
             "goggle",
-            "googles",
             "eye protection",
+            "protect your eyes",
             "safety glasses",
             "glove",
             "lab coat",
+            "spills",
             "clean up",
-            "wipe up",
-            "wash your",
-            "wash it",
+            "wash",
+            "small amount",
           ],
           feedback:
             "A precaution is an **action** that reduces the risk, e.g. **wear eye protection (goggles)**, clean up spills straight away, or wash acid off your skin with lots of water.",
@@ -594,9 +583,8 @@ export const QA_SET_1: QuestionSet<QA> = {
           keywords: [
             "teeth",
             "tooth",
-            "chews",
-            "chewing",
-            "chewed",
+            "chew",
+            "bite",
             "mechanical",
             "small pieces",
             "grind",
@@ -610,12 +598,12 @@ export const QA_SET_1: QuestionSet<QA> = {
           keywords: [
             "amylase+saliva",
             "amylase+mouth",
-            "carbohydrase+saliva",
             "saliva+enzyme",
             "saliva+sugar",
             "saliva+maltose",
             "saliva+digest",
-            "saliva+break",
+            "saliva+breaks",
+            "saliva+broken",
           ],
           feedback:
             "**Saliva** contains the enzyme **amylase**, which starts breaking starch down into sugar (maltose). Chemical digestion begins in the mouth.",

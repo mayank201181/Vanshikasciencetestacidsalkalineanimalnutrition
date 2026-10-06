@@ -2,7 +2,7 @@ import type { FigureKey } from "@/lib/types";
 
 /** Universal indicator colours for pH 0–14 (red → orange → yellow → green → blue → purple). */
 export const PH_COLORS = [
-  "#c62828", "#e53935", "#f4511e", "#fb8c00", "#ffa726", "#fdd835", "#d4e157",
+  "#b71c1c", "#d32f2f", "#e53935", "#fb8c00", "#ffa726", "#fdd835", "#d4e157",
   "#43a047", "#29b6f6", "#1e88e5", "#1565c0", "#283593", "#4527a0", "#6a1b9a", "#4a148c",
 ];
 

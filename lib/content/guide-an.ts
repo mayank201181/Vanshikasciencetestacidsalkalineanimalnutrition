@@ -300,7 +300,7 @@ export const GUIDE_AN: GuideSection[] = [
       "| Lipid (fat) | glycerol + 3 fatty acids | lipase | small intestine |\n\n" +
       "Why two carbohydrases? **Amylase** cuts starch into a smaller sugar called **maltose**, then **maltase** cuts maltose into **glucose**.\n\n" +
       "**Where are enzymes made?** The **pancreas** makes all three types and releases them into the **small intestine**. The **salivary glands** make amylase, the **stomach** makes protease, and the wall of the small intestine makes some enzymes too.\n\n" +
-      "**Lock and key.** Each enzyme has a special shape that fits only **one type of molecule**, like a key that fits only one lock. That's why protease can't digest starch and amylase can't digest protein.\n\n" +
+      "**Lock and key.** Each enzyme has a special shape (the lock) that only **one type of molecule** (the key) fits, just as only one key fits your front door. That's why protease can't digest starch and amylase can't digest protein.\n\n" +
       "Enzymes work best at **body temperature (about 37 °C)**. In the cold they work slowly; if they get too hot, their shape changes and they stop working.",
     diagram: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 330" role="img" aria-label="Enzymes as chemical scissors: carbohydrase cuts a starch chain into glucose molecules, protease cuts a protein chain into amino acids, and lipase splits a fat into glycerol and three fatty acids" font-family="sans-serif">
       <text x="95" y="20" font-size="12" font-weight="bold" text-anchor="middle" fill="#64748b">Large, insoluble</text>
@@ -387,7 +387,7 @@ export const GUIDE_AN: GuideSection[] = [
       "- Small droplets have a much **bigger surface area** for **lipase** to work on, so fat is digested **faster**.\n" +
       "- Bile is **alkaline**, so it **neutralises the stomach acid** as food arrives in the small intestine, giving the enzymes there the right conditions. That's a neutralisation reaction, just like the ones in your Acids & Alkalis unit!\n\n" +
       "**Bile is NOT an enzyme.** It breaks fat **UP**, not **DOWN**. After emulsifying, the droplets are still fat, just smaller. Only **lipase** actually breaks fat **down** into **glycerol and fatty acids**.\n\n" +
-      "**The pancreas** makes all three types of digestive enzyme, **carbohydrase, protease and lipase**, and releases them into the **small intestine**, where they finish digesting starch, protein and fat.\n\n" +
+      "**The pancreas** makes all three types of digestive enzyme, **carbohydrase, protease and lipase**, and releases them into the **small intestine**, where they finish digesting starch and protein, and digest fat.\n\n" +
       "So in the small intestine the liver and pancreas work as a team: **bile** gets the fat ready and neutralises the acid, then the **pancreas's enzymes** do the chemical digestion.",
     diagram: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 236" role="img" aria-label="Bile emulsifies fat: one big fat droplet is broken up into many small droplets, giving a much bigger surface area for lipase enzymes to work on" font-family="sans-serif">
       <circle cx="82" cy="100" r="50" fill="#fde047" stroke="#ca8a04" stroke-width="2"/>
@@ -458,7 +458,7 @@ export const GUIDE_AN: GuideSection[] = [
     heading: "Absorption: small intestine and villi",
     discovery: {
       problem:
-        "Your small intestine is a narrow tube, only about 2.5 cm wide. Yet if you could flatten out its whole inner surface, it would cover around 30 square metres, roughly half a badminton court! How can a narrow tube have so much surface?",
+        "Your small intestine is a narrow tube, only about 2.5 cm wide. Yet if you could flatten out its whole inner surface, it would cover around 30 square metres, about a third of a badminton court! How can a narrow tube have so much surface?",
       idea:
         "Its inner wall is folded and covered in millions of tiny finger-like villi, and even the cells on each villus have tiny folds of their own. Folding a surface into lots of 'fingers' packs a huge area into a small space, just as a fluffy towel has far more surface than a flat sheet the same size. More surface means more digested food can be absorbed at the same time.",
     },
@@ -470,10 +470,10 @@ export const GUIDE_AN: GuideSection[] = [
       "- **Lots of capillaries**: a **good blood supply** carries absorbed food away quickly, so more can keep moving in.\n\n" +
       "**Towel vs sheet:** to dry yourself, a fluffy towel works much better than a flat sheet of the same size, because its tiny loops give it a far bigger surface. Villi do the same job for absorbing food.\n\n" +
       "**What's left?** **Fibre** and any **undigested food** can't be absorbed, so they move on to the **large intestine**, which **absorbs water** from them to make **solid faeces**. The faeces are stored in the **rectum** and leave through the **anus**.\n\n" +
-      "**If villi are damaged** (as happens in coeliac disease, when gluten damages them), the surface area becomes much **smaller**, so **less food is absorbed**. A person can then become malnourished even though they eat plenty.",
+      "**If villi are damaged** (as happens in coeliac disease, when the body reacts badly to gluten, a protein in wheat), the surface area becomes much **smaller**, so **less food is absorbed**. A person can then become malnourished even though they eat plenty.",
     figure: "villus",
     diagramCaption:
-      "One villus (plural: villi). Its wall is only one cell thick and it is packed with blood capillaries, so small, soluble food molecules pass quickly into the blood.",
+      "Villi (one is called a villus) lining the small intestine. Each villus has a wall only one cell thick and a network of blood capillaries inside, so small, soluble food molecules pass quickly into the blood.",
     keyPoints: [
       "Absorption: small soluble molecules (glucose, amino acids, fatty acids, glycerol) pass through the wall of the small intestine into the blood.",
       "Villi are finger-like projections that give a very large surface area.",

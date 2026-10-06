@@ -91,7 +91,7 @@ export default function CramPage() {
           <p><strong>Bee</strong> sting = acid → <strong>b</strong>icarbonate of soda. <strong>Wasp</strong> sting = alkali → <strong>v</strong>inegar.</p>
         </Box>
         <Box title="Investigating indigestion (results tables)" tone="rose">
-          <p><strong>Independent</strong> = what you change (type of antacid). <strong>Dependent</strong> = what you measure (acid neutralised). <strong>Control</strong> = keep the same (volume &amp; concentration of acid, mass of antacid, same indicator).</p>
+          <p><strong>Independent</strong> = what you change (type of antacid). <strong>Dependent</strong> = what you measure (how much acid is neutralised, or how much antacid is needed). <strong>Control</strong> = keep the same: concentration of acid, same indicator, temperature — and EITHER the volume of acid (if you measure how much antacid is needed) OR the mass of antacid (if you count drops of acid).</p>
           <p>Table: independent variable in the <strong>first column</strong>; <strong>units in the headings</strong>, not in the cells; repeats + a <strong>mean</strong> column.</p>
           <p>Mean: <strong>leave out the anomaly</strong>, add the rest, divide by how many you used.</p>
         </Box>

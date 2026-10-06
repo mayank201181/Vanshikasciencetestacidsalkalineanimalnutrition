@@ -64,7 +64,7 @@ export const GUIDE_AA: GuideSection[] = [
     memoryTrick:
       "Think of bases as a club and alkalis as the club members who can swim (dissolve in water). Every swimmer is in the club, but not every club member can swim.",
     examTip:
-      "Learn the definition word for word: an alkali is a soluble base (a base that dissolves in water). 'The opposite of an acid' won't get the mark. Also match each acid to its food: citric – lemons, ascorbic – vitamin C, ethanoic – vinegar, carbonic – fizzy drinks.",
+      "Learn the definition word for word: an alkali is a soluble base (a base that dissolves in water). 'The opposite of an acid' won't get the mark. Also match each acid to its food: citric – lemons, ascorbic – vitamin C (oranges), ethanoic – vinegar, carbonic – fizzy drinks.",
     thinkDeeper:
       "Copper oxide neutralises acids, but if you stir it into water, red litmus paper stays red. Use the word 'soluble' to explain why. Caustic soda (sodium hydroxide) unblocks drains: which circle of the Venn diagram does it belong in, and what test would prove it?",
   },
@@ -225,7 +225,7 @@ export const GUIDE_AA: GuideSection[] = [
       "An indicator's dye can exist in different forms with different colours, and acids and alkalis switch it from one form to another. Litmus has only one switch, so it can only sort acid from alkali; red cabbage and universal indicator contain dyes that switch at lots of different pH values, so they show many colours.",
     memoryTrick: "BRA: Blue turns Red in Acid. Flip it for alkalis: Red turns Blue.",
     examTip:
-      "Litmus is only ever red or blue. It never turns green or purple (those are universal indicator colours). Always say which paper you mean: 'blue litmus turns red', not just 'it turns red'.",
+      "Litmus paper is only ever red or blue. It never turns green or purple (those are universal indicator colours). Always say which paper you mean: 'blue litmus turns red', not just 'it turns red'.",
     thinkDeeper:
       "Red cabbage indicator gives lots of colours, but it doesn't come with a colour chart. How could you make your own chart, so that you could use red cabbage to estimate the pH of a liquid you've never tested?",
   },
@@ -240,7 +240,7 @@ export const GUIDE_AA: GuideSection[] = [
       problem:
         "Lemon juice and vinegar both turn blue litmus red, so both are acids. But which one is MORE acidic? Litmus can't help you here, so what could?",
       idea:
-        "Universal indicator! It's a mixture of dyes that gives a different colour for each pH. Lemon juice turns it red (about pH 2) and vinegar turns it orange (about pH 3). The lower the pH, the more acidic the solution, so lemon juice is the more acidic of the two.",
+        "Universal indicator! It's a mixture of dyes, so it shows a whole range of colours across the pH scale. Lemon juice turns it red (about pH 2) and vinegar turns it orange (about pH 3). The lower the pH, the more acidic the solution, so lemon juice is the more acidic of the two.",
     },
     body:
       "**Universal indicator** turns a different colour depending on the **pH** of a solution, and it works across the whole pH range. Use it as a **solution** (add a few drops) or as **paper** (dip it in, or spot the liquid on with a glass rod). Then **compare the colour with the colour chart** to read off the pH.\n\n" +
@@ -251,7 +251,8 @@ export const GUIDE_AA: GuideSection[] = [
       "| Colour | pH | Meaning |\n" +
       "|---|---|---|\n" +
       "| red | 0–2 | strongly acidic |\n" +
-      "| orange or yellow | 3–6 | weakly acidic |\n" +
+      "| orange | 3–4 | weakly acidic |\n" +
+      "| yellow | 5–6 | weakly acidic |\n" +
       "| green | 7 | neutral |\n" +
       "| blue | 8–10 | weakly alkaline |\n" +
       "| dark blue or purple | 11–14 | strongly alkaline |\n\n" +
@@ -449,7 +450,7 @@ export const GUIDE_AA: GuideSection[] = [
     whyItWorks:
       "When the acid and the hydroxide react, the hydrogen from the acid joins the hydroxide to make water. The two leftover pieces, the metal from the hydroxide and the 'acid part' (chloride, sulfate or nitrate), join together as the salt. That's why its name is built from both.",
     memoryTrick:
-      "Metal first, acid second, like a first name and a surname. For the ending, keep the middle of the acid's name: hydro-CHLOR-ic → CHLOR-ide, SULF-uric → SULF-ate, NITR-ic → NITR-ate.",
+      "Metal first, acid second, like a first name and a surname. For the ending, keep the key part of the acid's name: hydro-CHLOR-ic → CHLOR-ide, SULF-uric → SULF-ate, NITR-ic → NITR-ate.",
     examTip:
       "Chloride, not chlorine; sulfate, not sulfide; nitrate, not nitride. Don't forget '+ water' as the second product, and keep the reactants on the left of the arrow and the products on the right.",
     thinkDeeper:
@@ -558,11 +559,11 @@ export const GUIDE_AA: GuideSection[] = [
         "Make it a fair test. Change only one thing: the type of antacid. Measure one thing: how much antacid it takes to neutralise the same amount of acid. Keep everything else the same. Then repeat, record your results in a clear table and compare the means.",
     },
     body:
-      "**The practical:** put **25 cm³ of dilute hydrochloric acid** (it stands in for stomach acid) in a beaker with a few drops of **universal indicator**, which turns it red. Add powdered antacid **a little at a time** (e.g. 0.1 g), stirring, until it turns **green**, and record the total mass added. *Or:* add acid **drop by drop** to a fixed mass of antacid and **count the drops** it neutralises.\n\n" +
+      "**The practical:** put **25 cm³ of dilute hydrochloric acid** (like stomach acid) in a beaker with a few drops of **universal indicator**, which turns it red. Add powdered antacid **a little at a time** (e.g. 0.1 g), stirring, until it turns **green**, and record the total mass added. *Or:* add acid **drop by drop** to a fixed mass of antacid and **count the drops** it neutralises.\n\n" +
       "**Variables:**\n\n" +
       "- **Independent** (what you change): the **type of antacid**\n" +
       "- **Dependent** (what you measure): the **mass of antacid needed** (or the number of drops of acid)\n" +
-      "- **Control** (what you keep the same): volume and concentration of acid, amount of indicator, stirring, temperature\n\n" +
+      "- **Control** (what you keep the same): concentration of acid, volume of acid (or mass of antacid, if you count drops), amount of indicator, stirring, temperature\n\n" +
       "Your Key Assessment is about the **results table**. A good one has the **independent variable in the first column**, **units in the column headings** (never in the cells), columns for **repeat readings** and a **mean**, and every value to the **same number of decimal places**.\n\n" +
       "*Example: mass of antacid needed to neutralise 25 cm³ of acid.*\n\n" +
       "| Antacid | Test 1 (g) | Test 2 (g) | Test 3 (g) | Mean (g) |\n" +
