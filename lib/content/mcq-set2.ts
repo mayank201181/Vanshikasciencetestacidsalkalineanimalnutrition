@@ -588,7 +588,7 @@ export const MCQ_SET_2: QuestionSet<MCQ> = {
         "D is the stomach. Food stays there for a long time, which makes it tempting — but it churns food with acid and protease; digested food is absorbed further along, in the small intestine.",
         "F is the small intestine, where millions of villi absorb digested food into the blood.",
         "G is the large intestine. It does absorb something, which makes it tempting — but it absorbs water from undigested food; the digested food has already been absorbed in the small intestine.",
-        "E is the pancreas. It sits right beside the gut, but it only makes enzymes that it sends into the small intestine — food never passes through it.",
+        "E is the pancreas. It sits right beside the gut, but it makes enzymes and sends them into the small intestine — food never passes through it.",
       ],
       explanation:
         "Digested food — glucose, amino acids, fatty acids and glycerol — is absorbed into the blood in the **small intestine (F)**. It comes straight after the stomach and is lined with millions of **villi**, which give a very large surface area, with thin walls and lots of capillaries. Don't mix it up with the **large intestine (G)**, which comes after it and absorbs **water** from the undigested leftovers.",

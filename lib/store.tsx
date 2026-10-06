@@ -57,7 +57,7 @@ export interface Progress {
 
 const EMPTY: Progress = {
   version: 1,
-  name: "",
+  name: "Vanshika",
   attempts: {},
   best: {},
   history: [],
@@ -83,7 +83,7 @@ function load(): Progress {
     const raw = window.localStorage.getItem(KEY);
     if (!raw) return EMPTY;
     const parsed = JSON.parse(raw) as Partial<Progress>;
-    return { ...EMPTY, ...parsed, version: 1 };
+    return { ...EMPTY, ...parsed, name: parsed.name || EMPTY.name, version: 1 };
   } catch {
     return EMPTY;
   }

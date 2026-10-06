@@ -56,7 +56,7 @@ export const MCQ_SET_1: QuestionSet<MCQ> = {
       optionFeedback: [
         "pH 7 sits right next to the weak acids (pH 5–6), but acidic means BELOW 7 — and 7 is not below 7.",
         "Weakly alkaline solutions are just ABOVE 7, like pH 8. pH 7 itself is the exact middle of the scale.",
-        "Strongly alkaline solutions are near the top of the scale (around pH 13–14) and turn universal indicator purple. pH 7 is the middle, not the top.",
+        "Strongly alkaline solutions are near the top of the scale (about pH 11–14) and turn universal indicator purple. pH 7 is the middle, not the top.",
         "pH 7 is exactly in the middle of the scale, so the solution is neither acidic nor alkaline — it is neutral.",
       ],
       explanation:
@@ -172,7 +172,7 @@ export const MCQ_SET_1: QuestionSet<MCQ> = {
         "The number is right but the description is backwards: a pH above 7 is alkaline, and the higher the number, the more alkaline it is.",
       ],
       explanation:
-        "Universal indicator colours follow the pH scale: **red (strongly acidic) → orange → yellow → green (neutral, pH 7) → blue → purple (strongly alkaline)**. Purple means the very top of the scale, around pH 14. Many drain cleaners contain **caustic soda (sodium hydroxide)**, one of the most dangerous alkalis in the home, which is why they carry the **corrosive** symbol. Memory trick: **R**ed is **R**eally acidic; **P**urple is **P**owerfully alkaline.",
+        "Universal indicator colours follow the pH scale: **red (strongly acidic) → orange → yellow → green (neutral, pH 7) → blue → purple (strongly alkaline)**. Purple is the top band of the scale (about pH 11–14), so it means strongly alkaline. Many drain cleaners contain **caustic soda (sodium hydroxide)**, one of the most dangerous alkalis in the home, which is why they carry the **corrosive** symbol. Memory trick: **R**ed is **R**eally acidic; **P**urple is **P**owerfully alkaline.",
       hints: [
         "Picture the universal indicator colour chart, with red at one end and purple at the other. Which end is purple?",
         "The further a colour is from green, the more strongly acidic or alkaline the solution. Is purple next to green, or right at the end?",
@@ -248,7 +248,7 @@ export const MCQ_SET_1: QuestionSet<MCQ> = {
         "'Add alkali until green' is a step from making a neutral solution, not an indicator. Adding alkali would change the indicator's colour before you even start testing.",
       ],
       explanation:
-        "To make red cabbage indicator: **chop** the cabbage (a bigger surface area lets more dye out), **soak it in hot water** so the purple dye dissolves, then **filter** out the bits of cabbage. The **coloured liquid** that passes through the filter paper is your indicator. It turns **red/pink in acids**, stays **purple when neutral** and turns **blue/green in alkalis**, so you can use it to sort solutions.",
+        "To make red cabbage indicator: **chop** the cabbage (a bigger surface area lets more dye out), **soak it in hot water** so the purple dye dissolves, then **filter** out the bits of cabbage. The **coloured liquid** that passes through the filter paper is your indicator. It turns **red/pink in acids**, stays **purple when neutral** and turns **green/yellow in alkalis**, so you can use it to sort solutions.",
       hints: [
         "When you soak chopped cabbage in hot water, where does the purple colour end up?",
         "Filtering separates a liquid from bits of solid. Which of the two holds the dye?",

@@ -151,17 +151,17 @@ export const MCQ_SET_3: QuestionSet<MCQ> = {
       topic: "an",
       section: "an-system",
       difficulty: "warmup",
-      question: "Where in the digestive system are faeces stored before they leave the body?",
+      question: "Which part of the digestive system has the main job of storing faeces before they leave the body?",
       options: ["Anus", "Large intestine", "Rectum", "Gall bladder"],
       answerIndex: 2,
       optionFeedback: [
         "The anus is right next to the rectum, so it's easy to mix them up — but the anus is the opening where faeces leave the body, not where they are stored.",
-        "The large intestine absorbs water to make faeces solid, which makes it tempting — but the faeces then move on to be stored in the rectum.",
-        "The rectum is the last part of the gut before the anus, and it stores faeces until you go to the toilet.",
+        "The rectum is actually the last section of the large intestine, so this is close — but the main job of the large intestine is absorbing water to make faeces solid. Storing faeces is the rectum's own special job.",
+        "The rectum is the last part of the gut before the anus, and its job is to store faeces until you go to the toilet.",
         "The gall bladder does store something — bile made by the liver — but food and faeces never pass through it.",
       ],
       explanation:
-        "The end of food's journey is: **large intestine** (water is absorbed, making faeces solid) → **rectum** (faeces are **stored**) → **anus** (faeces **leave** the body). Faeces are the undigested material, such as fibre, that couldn't be absorbed. Memory trick: the **R**ectum **R**etains; the **A**nus **A**llows it out.",
+        "The end of food's journey is: **large intestine** (water is absorbed, making faeces solid) → **rectum** (faeces are **stored**) → **anus** (faeces **leave** the body). The rectum is really the last section of the large intestine, but it has its own special job, so it is learned as a separate organ: the large intestine's main job is **absorbing water**, while the rectum's job is **storing faeces**. Faeces are the undigested material, such as fibre, that couldn't be absorbed. Memory trick: the **R**ectum **R**etains; the **A**nus **A**llows it out.",
       hints: ["Think about the last few parts of food's journey. Which part holds faeces, and which part is just the way out?"],
       strategy: "Follow the food",
     },
@@ -478,7 +478,7 @@ export const MCQ_SET_3: QuestionSet<MCQ> = {
     {
       id: "s3-q20",
       topic: "aa",
-      section: "aa-neutralisation",
+      section: "aa-everyday",
       difficulty: "challenge",
       question:
         "Copper oxide neutralises sulfuric acid, making copper sulfate and water. So why is copper oxide NOT called an alkali?",
