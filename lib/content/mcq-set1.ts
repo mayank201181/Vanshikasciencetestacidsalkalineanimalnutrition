@@ -245,7 +245,7 @@ export const MCQ_SET_1: QuestionSet<MCQ> = {
         "The purple dye dissolves into the hot water, so the coloured liquid that passes through the filter paper is your indicator.",
         "The cabbage looks like the important part, but the dye has dissolved into the water and passed through the filter paper. The soggy cabbage left behind has lost most of its colour.",
         "Evaporating is how you get solid salt from a salt solution. For an indicator you keep the coloured liquid, so you can add a few drops of it to each solution.",
-        "'Add alkali until green' is a step from making a neutral solution, not an indicator. Adding alkali would change the indicator's colour before you even start testing.",
+        "'Add alkali until green' is a step from making a neutral solution with universal indicator, not from making an indicator. Red cabbage turns green in alkalis, so adding alkali would change its colour before you even start testing.",
       ],
       explanation:
         "To make red cabbage indicator: **chop** the cabbage (a bigger surface area lets more dye out), **soak it in hot water** so the purple dye dissolves, then **filter** out the bits of cabbage. The **coloured liquid** that passes through the filter paper is your indicator. It turns **red/pink in acids**, stays **purple when neutral** and turns **green/yellow in alkalis**, so you can use it to sort solutions.",

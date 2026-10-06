@@ -90,13 +90,22 @@ function checkQaSet(set: QuestionSet<QA>, prefix: string, n: number) {
     // self-test 1: the model answer must earn every point
     const model = gradeQA(q, q.modelAnswer);
     model.credited.forEach((c, j) => !c && err(`${q.id}: MODEL ANSWER misses point ${j + 1} ("${q.markScheme[j].point}")`));
-    // self-test 2: copying the question must earn nothing
-    const stem = gradeQA(q, q.question + " " + (q.table ? q.table.headers.join(" ") + " " + q.table.rows.flat().join(" ") : ""));
-    stem.credited.forEach((c, j) => {
+    // self-test 2: copying the question must earn nothing (error);
+    // copying the data table too is only a warning — e.g. naming an anomalous value needs the number itself
+    const stemText = q.question;
+    const tableText = q.table ? q.table.headers.join(" ") + " " + q.table.rows.flat().join(" ") : "";
+    gradeQA(q, stemText).credited.forEach((c, j) => {
       if (!c) return;
-      const hits = q.markScheme[j].keywords.filter((k) => keywordMatches(tokens(q.question + " " + (q.table ? q.table.rows.flat().join(" ") : "")), k));
+      const hits = q.markScheme[j].keywords.filter((k) => keywordMatches(tokens(stemText), k));
       err(`${q.id}: copying the QUESTION earns point ${j + 1} via ${JSON.stringify(hits)}`);
     });
+    if (tableText) {
+      gradeQA(q, stemText + " " + tableText).credited.forEach((c, j) => {
+        if (!c) return;
+        const hits = q.markScheme[j].keywords.filter((k) => keywordMatches(tokens(stemText + " " + tableText), k));
+        warn(`${q.id}: copying the question + table earns point ${j + 1} via ${JSON.stringify(hits)}`);
+      });
+    }
   });
   console.log(`${set.id}: ${set.questions.length} questions, ${set.questions.reduce((s, q) => s + q.marks, 0)} marks`);
 }

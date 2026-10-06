@@ -487,12 +487,11 @@ export const GUIDE_AA: GuideSection[] = [
   <text x="256" y="27" font-size="13" font-weight="bold" fill="#1e293b">Acidic soil</text>
   <text x="18" y="173" font-size="13" font-weight="bold" fill="#1e293b">Tooth decay</text>
   <text x="256" y="173" font-size="13" font-weight="bold" fill="#1e293b">Stings</text>
-  <rect x="40" y="36" width="11" height="28" fill="#fecdd3" stroke="#e11d48" stroke-width="2"/>
-  <ellipse cx="74" cy="76" rx="40" ry="24" transform="rotate(-12 74 76)" fill="#fecdd3" stroke="#e11d48" stroke-width="2"/>
-  <text x="74" y="81" font-size="12" font-weight="bold" fill="#be123c" text-anchor="middle">acid</text>
-  <path d="M154 76 H126 M128 70 L117 76 L128 82 Z" fill="#64748b" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round"/>
-  <circle cx="180" cy="76" r="22" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
-  <text x="180" y="81" font-size="12" font-weight="bold" fill="#4f46e5" text-anchor="middle">base</text>
+  <path d="M46 34 L46 50 C30 60 30 96 60 102 C86 108 112 96 116 76 L124 74 L124 66 L112 68 C104 80 84 84 70 74 C62 68 58 60 58 50 L58 34" fill="#fecdd3" stroke="#e11d48" stroke-width="2" stroke-linejoin="round"/>
+  <text x="62" y="92" font-size="12" font-weight="bold" fill="#be123c" text-anchor="middle">acid</text>
+  <path d="M156 86 H128 M130 80 L119 86 L130 92 Z" fill="#64748b" stroke="#64748b" stroke-width="2.5" stroke-linejoin="round"/>
+  <circle cx="180" cy="86" r="20" fill="#ffffff" stroke="#94a3b8" stroke-width="2"/>
+  <text x="180" y="91" font-size="12" font-weight="bold" fill="#4f46e5" text-anchor="middle">base</text>
   <text x="121" y="122" font-size="12" fill="#1e293b" text-anchor="middle">Antacid (a base) neutralises</text>
   <text x="121" y="137" font-size="12" fill="#1e293b" text-anchor="middle">extra stomach acid</text>
   <rect x="262" y="84" width="196" height="22" rx="4" fill="#92400e"/>
@@ -511,17 +510,18 @@ export const GUIDE_AA: GuideSection[] = [
   <text x="179" y="244" font-size="11" fill="#0369a1" text-anchor="middle">toothpaste</text>
   <text x="121" y="268" font-size="12" fill="#1e293b" text-anchor="middle">Toothpaste (a mild alkali)</text>
   <text x="121" y="283" font-size="12" fill="#1e293b" text-anchor="middle">neutralises acid from bacteria</text>
-  <path d="M268.5 201 H262 M268.5 246 H262" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
-  <ellipse cx="282" cy="190" rx="9" ry="6" fill="#e0f2fe" stroke="#94a3b8" stroke-width="1.5"/>
-  <ellipse cx="286" cy="201" rx="18" ry="11" fill="#facc15" stroke="#1e293b" stroke-width="1.5"/>
-  <path d="M282 191 V211 M292 191.5 V210.5" stroke="#1e293b" stroke-width="4"/>
-  <circle cx="306" cy="201" r="6" fill="#1e293b"/>
+  <path d="M268 201 H262 M258 246 H252" stroke="#1e293b" stroke-width="2" stroke-linecap="round"/>
+  <ellipse cx="280" cy="188" rx="10" ry="6.5" fill="#e0f2fe" stroke="#94a3b8" stroke-width="1.5"/>
+  <ellipse cx="285" cy="201" rx="17" ry="12" fill="#fbbf24" stroke="#1e293b" stroke-width="1.5"/>
+  <path d="M281 190.5 V211.5 M291 190.5 V211.5" stroke="#1e293b" stroke-width="4"/>
+  <circle cx="305" cy="201" r="7" fill="#1e293b"/>
   <text x="320" y="197" font-size="12" font-weight="bold" fill="#b91c1c">Bee = acid</text>
   <text x="320" y="213" font-size="12" fill="#1e293b">→ bicarb or soap</text>
-  <ellipse cx="282" cy="236" rx="9" ry="6" fill="#e0f2fe" stroke="#94a3b8" stroke-width="1.5"/>
-  <ellipse cx="286" cy="246" rx="18" ry="8" fill="#fde047" stroke="#1e293b" stroke-width="1.5"/>
-  <path d="M281 239 V253 M291 239 V253" stroke="#1e293b" stroke-width="4"/>
-  <circle cx="306" cy="246" r="5.5" fill="#1e293b"/>
+  <ellipse cx="292" cy="236" rx="9" ry="5" fill="#e0f2fe" stroke="#94a3b8" stroke-width="1.5"/>
+  <path d="M258 246 Q266 237 280 238 Q291 239 292 246 Q291 253 280 254 Q266 255 258 246 Z" fill="#fde047" stroke="#1e293b" stroke-width="1.5" stroke-linejoin="round"/>
+  <path d="M271 239.5 V252.5 M281 239 V253" stroke="#1e293b" stroke-width="3.5"/>
+  <ellipse cx="299" cy="245.5" rx="6" ry="5" fill="#1e293b"/>
+  <circle cx="309" cy="245" r="4.5" fill="#1e293b"/>
   <text x="320" y="242" font-size="12" font-weight="bold" fill="#1d4ed8">Wasp = alkali</text>
   <text x="320" y="258" font-size="12" fill="#1e293b">→ vinegar</text>
   <text x="359" y="283" font-size="11" font-style="italic" fill="#475569" text-anchor="middle">traditional remedies</text>
@@ -573,13 +573,14 @@ export const GUIDE_AA: GuideSection[] = [
       "**Conclusion:** say what you found and back it up with data. *Antacid C was the most effective: it needed the smallest mass (0.9 g) to neutralise the acid, compared with 1.5 g for A and 2.3 g for B.*",
     diagram: `<svg viewBox="0 0 460 258" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="A results table. The first column lists antacids A, B and C. A heading reading mass of antacid needed in grams spans columns for test 1, test 2, test 3 and the mean. Antacid A: 1.4, 1.6, 1.5, mean 1.5. Antacid B: 2.2, 2.4, 2.3, mean 2.3. Antacid C: 0.8, 1.9, 1.0, mean 0.9. The 1.9 is circled as an anomaly and left out of the mean." font-family="sans-serif">
   <text x="440" y="20" font-size="12" font-weight="bold" fill="#7c3aed" text-anchor="end">Units go in the headings, not in the cells</text>
-  <path d="M362 25 V40 M357 38 L362 47 L367 38 Z" fill="#7c3aed" stroke="#7c3aed" stroke-width="2" stroke-linejoin="round"/>
+  <path d="M348 25 V40 M343 38 L348 47 L353 38 Z" fill="#7c3aed" stroke="#7c3aed" stroke-width="2" stroke-linejoin="round"/>
   <rect x="30" y="50" width="400" height="48" fill="#f1f5f9"/>
   <rect x="354" y="98" width="76" height="72" fill="#ecfdf5"/>
   <path d="M126 50 V170 M126 74 H430 M202 74 V170 M278 74 V170 M354 74 V170 M30 98 H430 M30 122 H430 M30 146 H430" fill="none" stroke="#94a3b8" stroke-width="1.2"/>
   <rect x="30" y="50" width="400" height="120" fill="none" stroke="#475569" stroke-width="2"/>
   <text x="78" y="79" font-size="12" font-weight="bold" fill="#1e293b" text-anchor="middle">Antacid</text>
-  <text x="278" y="67" font-size="12" font-weight="bold" fill="#1e293b" text-anchor="middle">Mass of antacid needed (g)</text>
+  <text x="336" y="67" font-size="12" font-weight="bold" fill="#1e293b" text-anchor="end">Mass of antacid needed</text>
+  <text x="339" y="67" font-size="12" font-weight="bold" fill="#7c3aed">(g)</text>
   <text x="164" y="91" font-size="12" font-weight="bold" fill="#1e293b" text-anchor="middle">Test 1</text>
   <text x="240" y="91" font-size="12" font-weight="bold" fill="#1e293b" text-anchor="middle">Test 2</text>
   <text x="316" y="91" font-size="12" font-weight="bold" fill="#1e293b" text-anchor="middle">Test 3</text>
