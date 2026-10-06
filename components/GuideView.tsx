@@ -100,12 +100,17 @@ function SectionCard({ s, n }: { s: GuideSection; n: number }) {
         )}
       </div>
 
-      <div className="mt-4 grid gap-5 lg:grid-cols-[1fr_minmax(0,420px)]">
-        <MarkdownLite text={s.body} />
-        <div className="space-y-3">
+      <div className="mt-4 grid grid-cols-[minmax(0,1fr)] gap-5 lg:grid-cols-[minmax(0,1fr)_minmax(0,420px)]">
+        <div className="min-w-0">
+          <MarkdownLite text={s.body} />
+        </div>
+        <div className="min-w-0 space-y-3">
           {s.figure && (
-            <figure className="diagram rounded-2xl border border-slate-100 bg-slate-50 p-2">
-              <Figure figure={s.figure} />
+            <figure className="rounded-2xl border border-slate-100 bg-slate-50 p-2">
+              <div className="diagram">
+                <Figure figure={s.figure} />
+              </div>
+              {s.diagramCaption && !s.diagram && <figcaption className="mt-1 px-1 text-center text-xs text-slate-500">{s.diagramCaption}</figcaption>}
             </figure>
           )}
           {s.diagram && (

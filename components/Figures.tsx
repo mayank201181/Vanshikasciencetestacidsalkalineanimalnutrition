@@ -97,8 +97,8 @@ export function DigestiveSystem({
             <line x1={l.tx} y1={l.ty} x2={lineEnd} y2={l.y} stroke={isHl ? glow : "#475569"} strokeWidth={isHl ? 2 : 1} />
             {mode === "lettered" ? (
               <g>
-                <circle cx={l.side === "R" ? xLabel : xLabel - 14} cy={l.y} r="11" fill="#ffffff" stroke="#334155" strokeWidth="1.5" />
-                <text x={l.side === "R" ? xLabel : xLabel - 14} y={l.y + 4.5} textAnchor="middle" fontSize="13" fontWeight="700" fontFamily="sans-serif" fill="#0f172a">
+                <circle cx={l.side === "R" ? xLabel + 2 : xLabel - 16} cy={l.y} r="14" fill="#ffffff" stroke="#334155" strokeWidth="2" />
+                <text x={l.side === "R" ? xLabel + 2 : xLabel - 16} y={l.y + 5.5} textAnchor="middle" fontSize="16" fontWeight="800" fontFamily="sans-serif" fill="#0f172a">
                   {letter}
                 </text>
               </g>

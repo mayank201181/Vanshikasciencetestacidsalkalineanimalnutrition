@@ -100,7 +100,7 @@ export default function Home() {
               value={nameDraft}
               onChange={(e) => setNameDraft(e.target.value)}
               placeholder="What's your first name?"
-              className="min-w-0 flex-1 rounded-xl border-0 px-3 py-2 text-slate-900 outline-none ring-2 ring-white/40 focus:ring-white"
+              className="min-w-0 flex-1 rounded-xl border-0 bg-white px-3 py-2 text-slate-900 outline-none ring-2 ring-white/40 placeholder:text-slate-400 focus:ring-white"
             />
             <button className="rounded-xl bg-white px-4 py-2 font-bold text-indigo-700">Save</button>
           </form>

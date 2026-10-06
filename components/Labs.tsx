@@ -144,7 +144,13 @@ export function NeutralisationLab() {
     setHistory([0]);
     setEvaporated(false);
   };
-  const pts = history.map((x) => `${20 + (x / 50) * 260},${150 - (phAfter(x) / 14) * 130}`).join(" ");
+  // Draw the real curve up to the volume added so far (fine steps near neutral so the jump shows).
+  const gx = (x: number) => 20 + (x / 50) * 260;
+  const gy = (ph: number) => 150 - (ph / 14) * 130;
+  const samples: number[] = [];
+  for (let x = 0; x <= v + 1e-9; x += x >= 23.5 && x < 26.5 ? 0.02 : 0.25) samples.push(Math.min(x, v));
+  if (samples[samples.length - 1] !== v) samples.push(v);
+  const pts = samples.map((x) => `${gx(x)},${gy(phAfter(x))}`).join(" ");
   return (
     <Frame title="⚖️ Neutralisation lab" intro="25 cm³ of acid with universal indicator is in the flask. Add alkali and try to stop EXACTLY at neutral (green, pH 7).">
       <div className="flex flex-wrap gap-3 text-sm">
@@ -183,7 +189,12 @@ export function NeutralisationLab() {
             <line x1="20" y1="10" x2="20" y2="150" stroke="#94a3b8" />
             <line x1="20" y1={150 - (7 / 14) * 130} x2="285" y2={150 - (7 / 14) * 130} stroke="#43a047" strokeDasharray="4 3" />
             <text x="24" y={150 - (7 / 14) * 130 - 4} fontSize="10" fill="#2e7d32" fontFamily="sans-serif">pH 7</text>
-            <polyline points={pts} fill="none" stroke="#4f46e5" strokeWidth="2.5" />
+            <polyline points={pts} fill="none" stroke="#4f46e5" strokeWidth="2.5" strokeLinejoin="round" />
+            {history.map((x, i) => (
+              <circle key={i} cx={gx(x)} cy={gy(phAfter(x))} r="2.5" fill="#4f46e5" />
+            ))}
+            <text x={gx(25)} y="146" fontSize="9" textAnchor="middle" fill="#64748b" fontFamily="sans-serif">25</text>
+            <text x={gx(50)} y="146" fontSize="9" textAnchor="end" fill="#64748b" fontFamily="sans-serif">50</text>
             <text x="150" y="163" fontSize="10" textAnchor="middle" fill="#475569" fontFamily="sans-serif">volume of alkali added (cm³) →</text>
             <text x="6" y="12" fontSize="10" fill="#475569" fontFamily="sans-serif">pH</text>
           </svg>
@@ -518,7 +529,7 @@ export function FoodTestLab() {
         </div>
       )}
 
-      <div className="mt-4 grid gap-3 sm:grid-cols-4">
+      <div className="mt-4 grid grid-cols-2 gap-3 sm:grid-cols-4">
         {TESTS.map((t) => {
           const res = f.r[t.key];
           const isDone = !!done[t.key];

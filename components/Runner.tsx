@@ -190,11 +190,11 @@ export function Runner({ mode, runId, title, subtitle, items, backHref, backLabe
 
       {/* footer navigation */}
       <div className="flex items-center justify-between gap-2">
-        <button onClick={() => go(a.index - 1)} disabled={a.index === 0} className="rounded-xl border border-slate-200 bg-white px-4 py-2.5 font-semibold text-slate-600 disabled:opacity-40">
+        <button onClick={() => go(a.index - 1)} disabled={a.index === 0} className="whitespace-nowrap rounded-xl border border-slate-200 bg-white px-4 py-2.5 font-semibold text-slate-600 disabled:opacity-40">
           ← Back
         </button>
         {allDone ? (
-          <button onClick={finish} className="rounded-xl bg-emerald-600 px-5 py-2.5 font-bold text-white shadow hover:bg-emerald-700">
+          <button onClick={finish} className="whitespace-nowrap rounded-xl bg-emerald-600 px-4 py-2.5 font-bold text-white shadow hover:bg-emerald-700">
             See my results 🎉
           </button>
         ) : (
@@ -209,7 +209,7 @@ export function Runner({ mode, runId, title, subtitle, items, backHref, backLabe
               else finish();
             }
           }}
-          className="rounded-xl bg-indigo-600 px-4 py-2.5 font-semibold text-white hover:bg-indigo-700"
+          className="whitespace-nowrap rounded-xl bg-indigo-600 px-4 py-2.5 font-semibold text-white hover:bg-indigo-700"
         >
           {a.index < items.length - 1 ? "Next →" : allDone ? "Finish" : "Unanswered →"}
         </button>
@@ -304,7 +304,11 @@ function McqCard({ mcq, number, total, mode, runId, attempt, persist }: CardProp
   const [selected, setSelected] = useState<number | null>(checked ? (committed as number) : null);
   const used = attempt.hintsUsed[mcq.id] ?? 0;
   const order = useMemo(() => optionOrder(mcq), [mcq]);
-  const letterOf = (authored: number) => String.fromCharCode(65 + order.indexOf(authored));
+  // When the answers are themselves diagram letters (A–I), number the choices instead of lettering them.
+  const letterOptions = mcq.options.every((o) => /^[A-Z]$/.test(o.trim()));
+  const labelAt = (pos: number) => (letterOptions ? String(pos + 1) : String.fromCharCode(65 + pos));
+  const letterOf = (authored: number) => labelAt(order.indexOf(authored));
+  const optText = (i: number) => (letterOptions ? `Letter ${mcq.options[i]}` : mcq.options[i]);
   const [earned, setEarned] = useState<number | null>(null);
 
   function check() {
@@ -349,9 +353,9 @@ function McqCard({ mcq, number, total, mode, runId, attempt, persist }: CardProp
               className={`flex w-full items-start gap-3 rounded-xl border-2 px-3.5 py-3 text-left transition ${cls}`}
             >
               <span className={`mt-0.5 flex h-7 w-7 shrink-0 items-center justify-center rounded-full border text-sm font-bold ${isSel && !checked ? "border-indigo-500 bg-indigo-500 text-white" : "border-slate-300 bg-white text-slate-600"}`}>
-                {String.fromCharCode(65 + pos)}
+                {labelAt(pos)}
               </span>
-              <span className="pt-0.5 text-slate-800">{mcq.options[i]}</span>
+              <span className="pt-0.5 text-slate-800">{optText(i)}</span>
               {checked && isAns && <span className="ml-auto pt-0.5">✅</span>}
               {checked && isSel && !isAns && <span className="ml-auto pt-0.5">❌</span>}
             </button>
@@ -389,7 +393,7 @@ function McqCard({ mcq, number, total, mode, runId, attempt, persist }: CardProp
             <>
               <div className="rounded-xl border border-rose-300 bg-rose-50 p-4">
                 <p className="font-extrabold text-rose-800">
-                  ❌ Not quite — you chose {letterOf(committed as number)}: “{mcq.options[committed as number]}”
+                  ❌ Not quite — you chose {letterOf(committed as number)}: “{optText(committed as number)}”
                 </p>
                 <p className="mt-1 text-rose-900">
                   <span className="font-semibold">Why that’s not right: </span>
@@ -398,7 +402,7 @@ function McqCard({ mcq, number, total, mode, runId, attempt, persist }: CardProp
               </div>
               <div className="rounded-xl border border-emerald-300 bg-emerald-50 p-4">
                 <p className="font-extrabold text-emerald-800">
-                  ✅ The right answer is {letterOf(mcq.answerIndex)}: “{mcq.options[mcq.answerIndex]}”
+                  ✅ The right answer is {letterOf(mcq.answerIndex)}: “{optText(mcq.answerIndex)}”
                 </p>
                 <p className="mt-1 text-emerald-900">{mcq.optionFeedback[mcq.answerIndex]}</p>
               </div>
@@ -517,7 +521,7 @@ function QaCard({ qa, number, total, mode, runId, attempt, persist }: CardProps 
                             <MarkdownInline text={mp.feedback} />
                           </p>
                         )}
-                        <button onClick={() => toggle(i)} className="mt-1.5 text-xs font-semibold text-slate-500 underline-offset-2 hover:underline">
+                        <button onClick={() => toggle(i)} className="mt-1.5 block text-left text-xs font-semibold text-slate-500 underline underline-offset-2 hover:text-slate-700">
                           {got ? "I didn’t really say this — remove the mark" : "The marker missed it — I did say this"}
                           {changed ? " (changed by you)" : ""}
                         </button>
