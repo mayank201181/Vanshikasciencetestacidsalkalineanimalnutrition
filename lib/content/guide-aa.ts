@@ -17,6 +17,7 @@ export const GUIDE_AA: GuideSection[] = [
         "Look at the beakers: the copper oxide just sits on the bottom, but the sodium hydroxide disappears because it dissolves. That is the whole difference! Both are bases, because both neutralise acids, but an alkali is a base that dissolves in water. So sodium hydroxide is a base AND an alkali, while copper oxide is a base but not an alkali.",
     },
     body:
+      "An **acid** has a **pH below 7** and turns **blue litmus red**. An **alkali** has a **pH above 7** and turns **red litmus blue**.\n\n" +
       "Acids aren't only found in labs. If you look around your kitchen, you may find some **acids to eat or drink**:\n\n" +
       "| Found in | Acid it contains |\n" +
       "|---|---|\n" +
@@ -29,7 +30,7 @@ export const GUIDE_AA: GuideSection[] = [
       "- **mild and safe:** soap, washing-up liquid, toothpaste\n" +
       "- **cleaning products:** bleach, washing powder\n" +
       "- **most dangerous:** oven cleaner and **caustic soda** (drain cleaner), which are very **corrosive**\n\n" +
-      "Caustic soda is **sodium hydroxide**, a common lab alkali, along with **potassium hydroxide**.\n\n" +
+      "Caustic soda is **sodium hydroxide**. Sodium hydroxide and **potassium hydroxide** are common **lab alkalis**.\n\n" +
       "A **base** is a substance that reacts with an acid to **neutralise** it and make a **salt**. **Metal oxides, metal hydroxides and metal carbonates** are all bases.\n\n" +
       "Many bases are **insoluble**: they don't dissolve in water. A base that **does** dissolve in water is called an **alkali**. So **an alkali is a soluble base**. All alkalis are bases, but not all bases are alkalis.",
     diagram: `<svg viewBox="0 0 460 292" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Venn diagram. A large oval labelled bases contains a smaller circle labelled alkalis. Copper oxide and calcium carbonate are insoluble bases outside the alkali circle. Sodium hydroxide and potassium hydroxide are inside the alkali circle." font-family="sans-serif">
@@ -321,7 +322,7 @@ export const GUIDE_AA: GuideSection[] = [
     heading: "Neutralisation",
     discovery: {
       problem:
-        "Hydrochloric acid is corrosive. Sodium hydroxide is corrosive. Yet if you mix them in exactly the right amounts, you end up with salty water. Where did the danger go?",
+        "Hydrochloric acid and sodium hydroxide can both damage your skin and eyes. Yet if you mix them in exactly the right amounts, you end up with salty water. Where did the danger go?",
       idea:
         "The acid and the alkali react and cancel each other out. This is neutralisation. Both are used up, and two new substances are made: a salt (here, sodium chloride, which is table salt) and water. Get the amounts exactly right and the solution is neutral, pH 7. (Never taste anything in a lab, though!)",
     },
@@ -452,7 +453,7 @@ export const GUIDE_AA: GuideSection[] = [
     examTip:
       "Chloride, not chlorine; sulfate, not sulfide; nitrate, not nitride. Don't forget '+ water' as the second product, and keep the reactants on the left of the arrow and the products on the right.",
     thinkDeeper:
-      "Which acid and which hydroxide would you react to make potassium sulfate? Now try a salt you've never met before: lithium nitrate. Write the full word equation for each.",
+      "Epsom salts are magnesium sulfate. Which hydroxide and which acid would you react to make them? Now try a salt you've never met before: lithium nitrate. Write the full word equation for each.",
   },
 
   // ---------------------------------------------------------------- Lesson 6
@@ -532,14 +533,14 @@ export const GUIDE_AA: GuideSection[] = [
       "Antacids contain a base (e.g. magnesium hydroxide or calcium carbonate) that neutralises extra hydrochloric acid in the stomach.",
       "Farmers add lime (a base) to neutralise acidic soil; lime is also added to lakes damaged by acid rain.",
       "Toothpaste is a mild alkali: it neutralises acid made by bacteria in your mouth, helping to prevent tooth decay.",
-      "Bee sting = acidic → treat with an alkali (bicarbonate of soda or soap). Wasp sting = alkaline → treat with a weak acid (vinegar).",
+      "Bee sting = acidic, so an alkali (bicarbonate of soda or soap) is traditionally used. Wasp sting = alkaline, so a weak acid (vinegar) is traditionally used.",
     ],
     whyItWorks:
       "Every example is the same reaction: a base cancels out an unwanted acid (or an acid cancels out an unwanted alkali), turning it into a salt and water, which are far less harmful.",
     memoryTrick:
       "Bee → Bicarb, Wasp → Vinegar. B goes with B, and V and W sit next to each other in the alphabet.",
     examTip:
-      "Explain the chemistry, not just the remedy: say that the base neutralises the acid (or the acid neutralises the alkali). And don't swap the stings: a bee sting is acidic, so it needs an alkali; a wasp sting is alkaline, so it needs an acid.",
+      "Explain the chemistry, not just the remedy: say that the base neutralises the acid (or the acid neutralises the alkali). And don't swap the stings: a bee sting is acidic, so an alkali would neutralise it; a wasp sting is alkaline, so an acid would neutralise it.",
     thinkDeeper:
       "Sodium hydroxide neutralises acid very well, so why don't indigestion tablets contain it? List the properties a good antacid should have.",
   },
