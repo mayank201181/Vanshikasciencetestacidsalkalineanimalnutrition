@@ -17,7 +17,7 @@ export function PracticeClient({ section }: { section: string }) {
         ← Read “{s.label}” in the guide
       </Link>
       <Runner
-        mode="drill"
+        mode="practice"
         runId={`practice-${section}`}
         title={`${s.emoji} Practise: ${s.label}`}
         subtitle={`Every question on this topic from all six sets (${items.length}), easiest first.`}

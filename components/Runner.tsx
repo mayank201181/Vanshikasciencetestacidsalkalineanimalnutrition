@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { useEffect, useMemo, useRef, useState } from "react";
 import type { DataTable, MCQ, QA } from "@/lib/types";
-import { useStore, type SetAttempt } from "@/lib/store";
+import { emptyAttempt, useStore, type SetAttempt } from "@/lib/store";
 import { optionOrder } from "@/lib/optionOrder";
 import { gradeQA, scorePoints, VERDICT_META } from "@/lib/grade";
 import { DIFFICULTY_META, sectionHref, sectionMeta } from "@/lib/sections";
@@ -13,26 +13,23 @@ import { ShareButton } from "./ShareButton";
 
 export type RunItem = { kind: "mcq"; q: MCQ } | { kind: "qa"; q: QA };
 
+type Mode = "set" | "practice" | "review";
+type Persist = (fn: (prev: SetAttempt) => SetAttempt) => void;
+
 type Props = {
-  /** "set": a question set, saved and resumable. "drill": mistakes / section practice (not saved as an attempt). */
-  mode: "set" | "drill";
+  /** Every mode is saved on this device and resumes where she left off.
+   *  "set" also records best scores; "practice" is a guide section; "review" is the Mistakes run. */
+  mode: Mode;
+  /** Storage key for this run. */
   runId: string;
+  /** Replaces the default "start again" (used by the Mistakes run to pick up new mistakes). */
+  onRestart?: () => void;
   title: string;
   subtitle?: string;
   items: RunItem[];
   backHref: string;
   backLabel: string;
 };
-
-const EMPTY_ATTEMPT = (): SetAttempt => ({
-  answers: {},
-  qaPoints: {},
-  hintsUsed: {},
-  index: 0,
-  completed: false,
-  startedAt: Date.now(),
-  updatedAt: Date.now(),
-});
 
 type Status = "todo" | "right" | "part" | "wrong";
 
@@ -54,30 +51,34 @@ function marksFor(item: RunItem, a: SetAttempt): [number, number] {
   return [pts.filter(Boolean).length, item.q.markScheme.length];
 }
 
-export function Runner({ mode, runId, title, subtitle, items, backHref, backLabel }: Props) {
+export function Runner({ mode, runId, title, subtitle, items, backHref, backLabel, onRestart }: Props) {
   const store = useStore();
   const { ready } = store;
-  const [a, setA] = useState<SetAttempt>(EMPTY_ATTEMPT);
+  const [a, setA] = useState<SetAttempt>(() => emptyAttempt());
+  const aRef = useRef<SetAttempt>(a);
   const [loaded, setLoaded] = useState(false);
   const [showSummary, setShowSummary] = useState(false);
   const topRef = useRef<HTMLDivElement>(null);
 
-  // hydrate a saved attempt (set mode only)
+  // resume the saved run (every mode is saved on this device)
   useEffect(() => {
     if (!ready || loaded) return;
-    if (mode === "set") {
-      const saved = store.getAttempt(runId);
-      if (saved) {
-        setA({ ...EMPTY_ATTEMPT(), ...saved, index: Math.min(saved.index, items.length - 1) });
-        if (saved.completed) setShowSummary(true);
-      }
+    const saved = store.getAttempt(runId);
+    if (saved) {
+      const restored = { ...emptyAttempt(), ...saved, index: Math.min(saved.index, items.length - 1) };
+      aRef.current = restored;
+      setA(restored);
+      if (saved.completed) setShowSummary(true);
     }
     setLoaded(true);
-  }, [ready, loaded, mode, runId, store, items.length]);
+  }, [ready, loaded, runId, store, items.length]);
 
-  const persist = (next: SetAttempt) => {
+  /** Apply a change to the latest attempt and save it immediately. */
+  const persist: Persist = (fn) => {
+    const next = { ...fn(aRef.current), updatedAt: Date.now() };
+    aRef.current = next;
     setA(next);
-    if (mode === "set") store.saveAttempt(runId, { ...next, updatedAt: Date.now() });
+    store.saveAttempt(runId, next);
   };
 
   const item = items[a.index];
@@ -86,7 +87,7 @@ export function Runner({ mode, runId, title, subtitle, items, backHref, backLabe
 
   const go = (i: number) => {
     if (i < 0 || i >= items.length) return;
-    persist({ ...a, index: i });
+    persist((prev) => ({ ...prev, index: i }));
     topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
@@ -103,14 +104,17 @@ export function Runner({ mode, runId, title, subtitle, items, backHref, backLabe
       store.finishSet({ setId: runId, correct: got, total, pct, at: Date.now() });
       store.award(`${runId}:finished`, 5);
     }
-    persist({ ...a, completed: true });
+    persist((prev) => ({ ...prev, completed: true }));
     setShowSummary(true);
     topRef.current?.scrollIntoView({ behavior: "smooth", block: "start" });
   };
 
   const restart = () => {
-    if (mode === "set") store.resetAttempt(runId);
-    setA(EMPTY_ATTEMPT());
+    if (onRestart) return onRestart();
+    store.resetAttempt(runId);
+    const fresh = emptyAttempt();
+    aRef.current = fresh;
+    setA(fresh);
     setShowSummary(false);
   };
 
@@ -198,7 +202,7 @@ export function Runner({ mode, runId, title, subtitle, items, backHref, backLabe
             See my results 🎉
           </button>
         ) : (
-          <span className="text-center text-xs text-slate-400">{items.length - answeredCount} to go · saved automatically</span>
+          <span className="text-center text-xs text-slate-400">{items.length - answeredCount} to go · ✓ saved on this device</span>
         )}
         <button
           onClick={() => {
@@ -295,13 +299,19 @@ function ReviseLink({ section }: { section: string }) {
   );
 }
 
-type CardProps = { number: number; total: number; mode: "set" | "drill"; runId: string; attempt: SetAttempt; persist: (a: SetAttempt) => void };
+type CardProps = { number: number; total: number; mode: Mode; runId: string; attempt: SetAttempt; persist: Persist };
+
+const without = <T,>(rec: Record<string, T> | undefined, key: string): Record<string, T> => {
+  const out = { ...(rec ?? {}) };
+  delete out[key];
+  return out;
+};
 
 function McqCard({ mcq, number, total, mode, runId, attempt, persist }: CardProps & { mcq: MCQ }) {
   const store = useStore();
   const committed = attempt.answers[mcq.id];
   const checked = typeof committed === "number";
-  const [selected, setSelected] = useState<number | null>(checked ? (committed as number) : null);
+  const [selected, setSelected] = useState<number | null>(checked ? (committed as number) : attempt.picks?.[mcq.id] ?? null);
   const used = attempt.hintsUsed[mcq.id] ?? 0;
   const order = useMemo(() => optionOrder(mcq), [mcq]);
   // When the answers are themselves diagram letters (A–I), number the choices instead of lettering them.
@@ -316,10 +326,9 @@ function McqCard({ mcq, number, total, mode, runId, attempt, persist }: CardProp
     const good = selected === mcq.answerIndex;
     store.recordAnswer(mcq.id, good ? 1 : 0, good);
     const stars = good ? Math.max(1, 3 - used) : 0;
-    const prevAttempts = store.p.stats[mcq.id]?.attempts ?? 0;
-    store.award(mode === "set" ? `${runId}:${mcq.id}` : `drill:${mcq.id}:${prevAttempts}`, stars);
+    store.award(`${runId}:${mcq.id}`, stars);
     setEarned(stars);
-    persist({ ...attempt, answers: { ...attempt.answers, [mcq.id]: selected } });
+    persist((prev) => ({ ...prev, answers: { ...prev.answers, [mcq.id]: selected }, picks: without(prev.picks, mcq.id) }));
   }
 
   const right = checked && committed === mcq.answerIndex;
@@ -348,7 +357,11 @@ function McqCard({ mcq, number, total, mode, runId, attempt, persist }: CardProp
           return (
             <button
               key={i}
-              onClick={() => !checked && setSelected(i)}
+              onClick={() => {
+                if (checked) return;
+                setSelected(i);
+                persist((prev) => ({ ...prev, picks: { ...(prev.picks ?? {}), [mcq.id]: i } }));
+              }}
               disabled={checked}
               className={`flex w-full items-start gap-3 rounded-xl border-2 px-3.5 py-3 text-left transition ${cls}`}
             >
@@ -367,7 +380,7 @@ function McqCard({ mcq, number, total, mode, runId, attempt, persist }: CardProp
         hints={mcq.hints}
         used={used}
         locked={checked}
-        onUse={() => persist({ ...attempt, hintsUsed: { ...attempt.hintsUsed, [mcq.id]: used + 1 } })}
+        onUse={() => persist((prev) => ({ ...prev, hintsUsed: { ...prev.hintsUsed, [mcq.id]: (prev.hintsUsed[mcq.id] ?? 0) + 1 } }))}
       />
 
       {!checked && (
@@ -429,7 +442,26 @@ function QaCard({ qa, number, total, mode, runId, attempt, persist }: CardProps 
   const store = useStore();
   const committed = attempt.answers[qa.id];
   const checked = typeof committed === "string";
-  const [draft, setDraft] = useState<string>(checked ? (committed as string) : "");
+  const [draft, setDraft] = useState<string>(checked ? (committed as string) : attempt.drafts?.[qa.id] ?? "");
+  // save the half-typed answer as she types, so leaving the page never loses it
+  const draftTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const pendingDraft = useRef<string | null>(null);
+  const persistRef = useRef(persist);
+  persistRef.current = persist;
+  const flushDraft = () => {
+    if (draftTimer.current) clearTimeout(draftTimer.current);
+    draftTimer.current = null;
+    const v = pendingDraft.current;
+    pendingDraft.current = null;
+    if (v !== null) persistRef.current((prev) => (prev.answers[qa.id] !== undefined ? prev : { ...prev, drafts: { ...(prev.drafts ?? {}), [qa.id]: v } }));
+  };
+  useEffect(() => () => flushDraft(), []); // eslint-disable-line react-hooks/exhaustive-deps
+  const onDraft = (v: string) => {
+    setDraft(v);
+    pendingDraft.current = v;
+    if (draftTimer.current) clearTimeout(draftTimer.current);
+    draftTimer.current = setTimeout(flushDraft, 400);
+  };
   const used = attempt.hintsUsed[qa.id] ?? 0;
   const points = attempt.qaPoints[qa.id] ?? qa.markScheme.map(() => false);
   const [auto, setAuto] = useState<boolean[] | null>(null);
@@ -441,20 +473,22 @@ function QaCard({ qa, number, total, mode, runId, attempt, persist }: CardProps 
     const r = gradeQA(qa, draft);
     setAuto(r.credited);
     store.recordAnswer(qa.id, r.score, r.score >= 0.75);
-    const prevAttempts = store.p.stats[qa.id]?.attempts ?? 0;
-    store.award(mode === "set" ? `${runId}:${qa.id}` : `drill:${qa.id}:${prevAttempts}`, Math.max(0, r.hit - Math.min(used, r.hit)));
-    persist({
-      ...attempt,
-      answers: { ...attempt.answers, [qa.id]: draft },
-      qaPoints: { ...attempt.qaPoints, [qa.id]: r.credited },
-    });
+    store.award(`${runId}:${qa.id}`, Math.max(0, r.hit - Math.min(used, r.hit)));
+    if (draftTimer.current) clearTimeout(draftTimer.current);
+    pendingDraft.current = null;
+    persist((prev) => ({
+      ...prev,
+      answers: { ...prev.answers, [qa.id]: draft },
+      qaPoints: { ...prev.qaPoints, [qa.id]: r.credited },
+      drafts: without(prev.drafts, qa.id),
+    }));
   }
 
   function toggle(i: number) {
     const next = points.map((v, j) => (j === i ? !v : v));
     const r = scorePoints(next);
     store.adjustAnswer(qa.id, r.score, r.score >= 0.75);
-    persist({ ...attempt, qaPoints: { ...attempt.qaPoints, [qa.id]: next } });
+    persist((prev) => ({ ...prev, qaPoints: { ...prev.qaPoints, [qa.id]: next } }));
   }
 
   return (
@@ -470,7 +504,7 @@ function QaCard({ qa, number, total, mode, runId, attempt, persist }: CardProps 
 
       <textarea
         value={draft}
-        onChange={(e) => setDraft(e.target.value)}
+        onChange={(e) => onDraft(e.target.value)}
         disabled={checked}
         rows={6}
         aria-label="Your answer"
@@ -482,7 +516,7 @@ function QaCard({ qa, number, total, mode, runId, attempt, persist }: CardProps 
         hints={qa.hints}
         used={used}
         locked={checked}
-        onUse={() => persist({ ...attempt, hintsUsed: { ...attempt.hintsUsed, [qa.id]: used + 1 } })}
+        onUse={() => persist((prev) => ({ ...prev, hintsUsed: { ...prev.hintsUsed, [qa.id]: (prev.hintsUsed[qa.id] ?? 0) + 1 } }))}
       />
 
       {!checked && (
@@ -579,7 +613,7 @@ function Summary({
   backHref,
   backLabel,
 }: {
-  mode: "set" | "drill";
+  mode: Mode;
   title: string;
   items: RunItem[];
   attempt: SetAttempt;
@@ -618,11 +652,9 @@ function Summary({
         </p>
         <p className="mx-auto mt-2 max-w-md text-slate-700">{message}</p>
         <div className="mt-4 flex flex-wrap justify-center gap-2">
-          {mode === "set" && (
-            <button onClick={onRestart} className="rounded-xl border border-slate-300 bg-white px-4 py-2 font-semibold text-slate-700 hover:bg-slate-50">
-              🔄 Try this set again
-            </button>
-          )}
+          <button onClick={onRestart} className="rounded-xl border border-slate-300 bg-white px-4 py-2 font-semibold text-slate-700 hover:bg-slate-50">
+            {mode === "set" ? "🔄 Try this set again" : mode === "practice" ? "🔄 Practise again" : "🔁 Start a new mistakes round"}
+          </button>
           {wrong.length > 0 && (
             <Link href="/review" className="rounded-xl bg-rose-600 px-4 py-2 font-semibold text-white hover:bg-rose-700">
               🔁 Fix my mistakes

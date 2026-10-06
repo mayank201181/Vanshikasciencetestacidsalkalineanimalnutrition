@@ -2,31 +2,56 @@
 
 import Link from "next/link";
 import { useMemo, useState } from "react";
-import { useStore } from "@/lib/store";
+import { emptyAttempt, useStore } from "@/lib/store";
 import { lookup } from "@/lib/content";
 import { openMistakes } from "@/lib/share";
 import { Runner, type RunItem } from "@/components/Runner";
 
+const RUN = "review";
+
 export default function ReviewPage() {
-  const { p, ready } = useStore();
-  const [run, setRun] = useState<{ ids: string[]; key: number } | null>(null);
+  const { p, ready, saveAttempt, resetAttempt } = useStore();
+  const [running, setRunning] = useState(false);
+  const [runKey, setRunKey] = useState(0);
   const [filter, setFilter] = useState<"all" | "aa" | "an">("all");
 
   const open = useMemo(() => (ready ? openMistakes(p) : []), [p, ready]);
   const fixed = useMemo(() => Object.values(p.mistakes).filter((v) => v === false).length, [p.mistakes]);
   const filtered = open.filter((id) => filter === "all" || lookup(id)?.q.topic === filter);
 
-  if (run) {
-    const items: RunItem[] = run.ids
-      .map((id) => lookup(id))
-      .filter(Boolean)
-      .map((x) => (x!.kind === "mcq" ? { kind: "mcq" as const, q: x!.q as never } : { kind: "qa" as const, q: x!.q as never }));
+  // A Mistakes round is saved like a set, so she can leave (e.g. to the guide) and carry on later.
+  const saved = p.attempts[RUN];
+  const savedIds = (saved?.ids ?? []).filter((id) => lookup(id));
+  const savedDone = saved ? savedIds.filter((id) => saved.answers[id] !== undefined).length : 0;
+  const canResume = !!saved && savedIds.length > 0 && !saved.completed && savedDone < savedIds.length;
+
+  const startNew = (ids: string[]) => {
+    resetAttempt(RUN);
+    saveAttempt(RUN, emptyAttempt(ids));
+    setRunKey((k) => k + 1);
+    setRunning(true);
+  };
+
+  if (running && saved?.ids?.length) {
+    const items: RunItem[] = savedIds
+      .map((id) => lookup(id)!)
+      .map((x) => (x.kind === "mcq" ? { kind: "mcq" as const, q: x.q as never } : { kind: "qa" as const, q: x.q as never }));
     return (
       <div className="space-y-3">
-        <button onClick={() => setRun(null)} className="text-sm font-semibold text-indigo-600 hover:underline">
-          ← Back to Mistakes
+        <button onClick={() => setRunning(false)} className="text-sm font-semibold text-indigo-600 hover:underline">
+          ← Back to Mistakes list
         </button>
-        <Runner key={run.key} mode="drill" runId={`review-${run.key}`} title="🔁 Fix my mistakes" subtitle="Get it right this time and it comes off your list." items={items} backHref="/review" backLabel="🔁 Mistakes list" />
+        <Runner
+          key={runKey}
+          mode="review"
+          runId={RUN}
+          title="🔁 Fix my mistakes"
+          subtitle="Get it right this time and it comes off your list. Saved as you go — you can leave and come back."
+          items={items}
+          backHref="/"
+          backLabel="🏠 Home"
+          onRestart={() => startNew(openMistakes(p))}
+        />
       </div>
     );
   }
@@ -37,7 +62,9 @@ export default function ReviewPage() {
     <div className="space-y-5">
       <div>
         <h1 className="text-2xl font-extrabold text-slate-900 sm:text-3xl">🔁 Mistakes list</h1>
-        <p className="mt-1 text-slate-600">Every question you got wrong lands here. Answer it correctly and it comes off the list (+ stars). This is the fastest way to gain marks before Thursday.</p>
+        <p className="mt-1 text-slate-600">
+          Every question you got wrong lands here. Answer it correctly and it comes off the list (+ stars). This is the fastest way to gain marks before Thursday.
+        </p>
       </div>
       <div className="flex flex-wrap items-center gap-3">
         <div className="rounded-2xl border border-rose-200 bg-rose-50 px-4 py-3">
@@ -57,6 +84,21 @@ export default function ReviewPage() {
         </div>
       </div>
 
+      {canResume && (
+        <button
+          onClick={() => setRunning(true)}
+          className="flex w-full items-center justify-between gap-3 rounded-2xl border-2 border-indigo-300 bg-indigo-50 px-5 py-4 text-left hover:bg-indigo-100"
+        >
+          <span>
+            <span className="block text-lg font-extrabold text-indigo-900">Continue your mistakes round →</span>
+            <span className="text-sm text-indigo-800">
+              {savedDone} of {savedIds.length} done — your answers are saved.
+            </span>
+          </span>
+          <span className="text-3xl">▶️</span>
+        </button>
+      )}
+
       {filtered.length === 0 ? (
         <div className="rounded-2xl border border-slate-200 bg-white p-8 text-center">
           <div className="text-5xl">{Object.keys(p.stats).length ? "🎉" : "📝"}</div>
@@ -71,10 +113,10 @@ export default function ReviewPage() {
       ) : (
         <>
           <button
-            onClick={() => setRun({ ids: filtered, key: Date.now() })}
-            className="w-full rounded-2xl bg-rose-600 px-5 py-4 text-lg font-extrabold text-white shadow hover:bg-rose-700 sm:w-auto"
+            onClick={() => startNew(filtered)}
+            className={`w-full rounded-2xl px-5 py-4 text-lg font-extrabold shadow sm:w-auto ${canResume ? "border border-rose-300 bg-white text-rose-700 hover:bg-rose-50" : "bg-rose-600 text-white hover:bg-rose-700"}`}
           >
-            Fix {filtered.length} mistake{filtered.length === 1 ? "" : "s"} now →
+            {canResume ? `Start a fresh round with all ${filtered.length} →` : `Fix ${filtered.length} mistake${filtered.length === 1 ? "" : "s"} now →`}
           </button>
           <ul className="space-y-2">
             {filtered.map((id) => {

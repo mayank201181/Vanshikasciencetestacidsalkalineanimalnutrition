@@ -1,75 +1,26 @@
 "use client";
 
 import { createContext, useCallback, useContext, useEffect, useMemo, useRef, useState } from "react";
+import {
+  EMPTY_PROGRESS,
+  mergeAttempt,
+  mergeProgress,
+  normaliseProgress,
+  type Finished,
+  type Progress,
+  type QuestionStat,
+  type SetAttempt,
+} from "./progressMerge";
 
 // All progress lives in this browser (localStorage) — no login needed, so the
 // link can simply be opened and used. The share button sends a summary to a parent.
 
 const KEY = "aa-an-test-prep-v1";
 
-export interface SetAttempt {
-  /** mcq: chosen option index (authored index); qa: the typed answer */
-  answers: Record<string, number | string>;
-  /** qa: final credited mark points (after any honest corrections) */
-  qaPoints: Record<string, boolean[]>;
-  /** number of hints revealed per question */
-  hintsUsed: Record<string, number>;
-  index: number;
-  completed: boolean;
-  startedAt: number;
-  updatedAt: number;
-}
+export type { SetAttempt, QuestionStat, Finished, Progress } from "./progressMerge";
+export { emptyAttempt } from "./progressMerge";
 
-export interface QuestionStat {
-  attempts: number;
-  correct: number;
-  lastCorrect: boolean;
-  /** 0..1 — last score (1/0 for MCQs, fraction of marks for written) */
-  lastScore: number;
-  lastAt: number;
-}
-
-export interface Finished {
-  setId: string;
-  correct: number;
-  total: number;
-  pct: number;
-  at: number;
-}
-
-export interface Progress {
-  version: 1;
-  name: string;
-  attempts: Record<string, SetAttempt>;
-  best: Record<string, Finished>;
-  history: Finished[];
-  stats: Record<string, QuestionStat>;
-  /** question id → open (true) or fixed (false) */
-  mistakes: Record<string, boolean>;
-  stars: number;
-  awarded: Record<string, true>;
-  guidesRead: Record<string, true>;
-  cards: Record<string, "known" | "learning">;
-  plan: Record<string, true>;
-  /** yyyy-mm-dd → answers given that day */
-  days: Record<string, number>;
-}
-
-const EMPTY: Progress = {
-  version: 1,
-  name: "Vanshika",
-  attempts: {},
-  best: {},
-  history: [],
-  stats: {},
-  mistakes: {},
-  stars: 0,
-  awarded: {},
-  guidesRead: {},
-  cards: {},
-  plan: {},
-  days: {},
-};
+const EMPTY = EMPTY_PROGRESS;
 
 export function todayKey(d = new Date()): string {
   const y = d.getFullYear();
@@ -78,12 +29,18 @@ export function todayKey(d = new Date()): string {
   return `${y}-${m}-${day}`;
 }
 
-function load(): Progress {
+function readRaw(): string | null {
   try {
-    const raw = window.localStorage.getItem(KEY);
-    if (!raw) return EMPTY;
-    const parsed = JSON.parse(raw) as Partial<Progress>;
-    return { ...EMPTY, ...parsed, name: parsed.name || EMPTY.name, version: 1 };
+    return window.localStorage.getItem(KEY);
+  } catch {
+    return null;
+  }
+}
+
+function parse(raw: string | null): Progress {
+  if (!raw) return EMPTY;
+  try {
+    return normaliseProgress(JSON.parse(raw) as Partial<Progress>);
   } catch {
     return EMPTY;
   }
@@ -131,38 +88,82 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
   const [ready, setReady] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const latest = useRef<Progress>(EMPTY);
+  /** The exact JSON this tab last read from / wrote to storage. */
+  const synced = useRef<string | null>(null);
+
+  const adopt = useCallback((next: Progress) => {
+    latest.current = next;
+    setP(next);
+  }, []);
+
+  /** Save now. If another tab saved since we last synced, merge first so neither loses answers. */
+  const writeNow = useCallback(() => {
+    if (timer.current) {
+      clearTimeout(timer.current);
+      timer.current = null;
+    }
+    try {
+      const raw = readRaw();
+      let toSave = latest.current;
+      if (raw && raw !== synced.current) {
+        toSave = mergeProgress(parse(raw), latest.current);
+        adopt(toSave);
+      }
+      const json = JSON.stringify(toSave);
+      window.localStorage.setItem(KEY, json);
+      synced.current = json;
+    } catch {
+      /* storage full or blocked — progress just won't persist */
+    }
+  }, [adopt]);
+
+  /** Pull in anything another tab saved. */
+  const pullFromStorage = useCallback(
+    (raw: string | null) => {
+      if (!raw || raw === synced.current) return;
+      const merged = mergeProgress(parse(raw), latest.current);
+      const json = JSON.stringify(merged);
+      adopt(merged);
+      synced.current = raw;
+      if (json !== raw) writeNow(); // we had something the other copy lacked
+    },
+    [adopt, writeNow],
+  );
 
   useEffect(() => {
-    const loaded = load();
-    latest.current = loaded;
-    setP(loaded);
+    const raw = readRaw();
+    synced.current = raw;
+    adopt(parse(raw));
     setReady(true);
-    const flush = () => {
-      try {
-        window.localStorage.setItem(KEY, JSON.stringify(latest.current));
-      } catch {
-        /* storage full or blocked — progress just won't persist */
-      }
+    const onStorage = (e: StorageEvent) => {
+      if (e.key === KEY) pullFromStorage(e.newValue);
     };
-    window.addEventListener("pagehide", flush);
-    return () => window.removeEventListener("pagehide", flush);
-  }, []);
+    const onVisible = () => {
+      if (document.visibilityState === "visible") pullFromStorage(readRaw());
+      else writeNow();
+    };
+    window.addEventListener("storage", onStorage);
+    document.addEventListener("visibilitychange", onVisible);
+    window.addEventListener("pagehide", writeNow);
+    return () => {
+      window.removeEventListener("storage", onStorage);
+      document.removeEventListener("visibilitychange", onVisible);
+      window.removeEventListener("pagehide", writeNow);
+    };
+  }, [adopt, pullFromStorage, writeNow]);
 
-  const update = useCallback((fn: (prev: Progress) => Progress) => {
-    setP((prev) => {
-      const next = fn(prev);
-      latest.current = next;
-      if (timer.current) clearTimeout(timer.current);
-      timer.current = setTimeout(() => {
-        try {
-          window.localStorage.setItem(KEY, JSON.stringify(latest.current));
-        } catch {
-          /* ignore */
-        }
-      }, 250);
-      return next;
-    });
-  }, []);
+  const update = useCallback(
+    (fn: (prev: Progress) => Progress) => {
+      setP((prev) => {
+        const next = fn(prev);
+        latest.current = next;
+        if (timer.current) clearTimeout(timer.current);
+        timer.current = setTimeout(writeNow, 200);
+        return next;
+      });
+    },
+    [writeNow],
+  );
 
   const store = useMemo<Store>(
     () => ({
@@ -170,17 +171,21 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
       p,
       setName: (name) => update((s) => ({ ...s, name: name.slice(0, 40) })),
       getAttempt: (setId) => latest.current.attempts[setId],
-      saveAttempt: (setId, a) => update((s) => ({ ...s, attempts: { ...s.attempts, [setId]: a } })),
-      resetAttempt: (setId) =>
+      saveAttempt: (setId, a) =>
+        update((s) => ({ ...s, attempts: { ...s.attempts, [setId]: mergeAttempt(s.attempts[setId], a)! } })),
+      resetAttempt: (setId) => {
+        const at = Date.now(); // taken now, so a run started right after is never older than its reset
         update((s) => {
           const attempts = { ...s.attempts };
           delete attempts[setId];
+          const resets = { ...s.resets, [setId]: at };
           // allow stars to be earned again on a fresh attempt
           const awarded = Object.fromEntries(
             Object.entries(s.awarded).filter(([k]) => !k.startsWith(`${setId}:`)),
           ) as Record<string, true>;
-          return { ...s, attempts, awarded };
-        }),
+          return { ...s, attempts, resets, awarded };
+        });
+      },
       recordAnswer: (qid, score, good) =>
         update((s) => {
           const prev = s.stats[qid];
@@ -240,7 +245,7 @@ export function ProgressProvider({ children }: { children: React.ReactNode }) {
           else plan[key] = true;
           return { ...s, plan };
         }),
-      resetAll: () => update(() => ({ ...EMPTY })),
+      resetAll: () => update(() => ({ ...EMPTY, resets: {} })),
     }),
     [p, ready, update],
   );
